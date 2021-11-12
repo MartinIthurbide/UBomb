@@ -5,10 +5,14 @@
 package fr.ubx.poo.ubomb.go.character;
 
 import fr.ubx.poo.ubomb.game.Direction;
+import fr.ubx.poo.ubomb.game.EntityCode;
 import fr.ubx.poo.ubomb.game.Game;
 import fr.ubx.poo.ubomb.game.Position;
 import fr.ubx.poo.ubomb.go.GameObject;
 import fr.ubx.poo.ubomb.go.Movable;
+import fr.ubx.poo.ubomb.go.decor.bonus.Bonus;
+
+import javax.swing.text.html.parser.Entity;
 
 
 public class Player extends GameObject implements Movable {
@@ -40,7 +44,15 @@ public class Player extends GameObject implements Movable {
     }
 
     public final boolean canMove(Direction direction) {
-        return true;
+        boolean can = false;
+        Position nextPos = direction.nextPosition(getPosition());
+        if (game.inside(nextPos)) {
+            can = true;
+            if (game.getGrid().get(nextPos) != null) {
+                can = game.getGrid().get(nextPos).isWalkable(this);
+            }
+        }
+        return can;
     }
 
     public void update(long now) {
@@ -68,11 +80,19 @@ public class Player extends GameObject implements Movable {
     }
 
     // Example of methods to define by the player
+    // TODO : Programmer les fonctions de récuperation de bonus
     public void takeDoor(int gotoLevel) {}
     public void takeKey() {}
+    public void takeHeart() {}
+    public void takeBombNumberInc() {}
+    public void takeBombNumberDec() {}
+    public void takeBombRangerInc() {}
+    public void takeBombRangerDec() {}
 
 
     public boolean isWinner() {
         return false;
     }
+
+
 }

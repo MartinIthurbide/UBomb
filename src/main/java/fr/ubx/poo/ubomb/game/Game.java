@@ -74,7 +74,11 @@ public class Game {
     }
 
     public boolean inside(Position position) {
-        return true;
+        int H = grid.getHeight();
+        int W = grid.getWidth();
+        if(position.getX() < W && position.getX() >= 0)
+            return position.getY() < H && position.getY() >= 0;
+        return false;
     }
 
 }
