@@ -10,6 +10,7 @@ import fr.ubx.poo.ubomb.game.Game;
 import fr.ubx.poo.ubomb.game.Position;
 import fr.ubx.poo.ubomb.go.GameObject;
 import fr.ubx.poo.ubomb.go.Movable;
+import fr.ubx.poo.ubomb.go.decor.Decor;
 import fr.ubx.poo.ubomb.go.decor.bonus.Bonus;
 
 import javax.swing.text.html.parser.Entity;
@@ -81,13 +82,30 @@ public class Player extends GameObject implements Movable {
 
     // Example of methods to define by the player
     // TODO : Programmer les fonctions de récuperation de bonus
-    public void takeDoor(int gotoLevel) {}
-    public void takeKey() {}
-    public void takeHeart() {}
-    public void takeBombNumberInc() {}
-    public void takeBombNumberDec() {}
-    public void takeBombRangerInc() {}
-    public void takeBombRangerDec() {}
+    public void takeDoor(int gotoLevel) {
+        System.out.println("Door pas encore implémenté\n");
+    }
+    public void takeKey() {
+        System.out.println("Key pas encore implémenté\n");
+    }
+    public void takeHeart() {
+        System.out.println("Heart pas encore implémenté\n");
+    }
+    public void takeBombNumberInc() {
+        System.out.println("BombNumberInc pas encore implémenté\n");
+    }
+    public void takeBombNumberDec() {
+        System.out.println("BombNumberDec pas encore implémenté\n");
+    }
+    public void takeBombRangerInc() {
+        System.out.println("BombRangerInc pas encore implémenté\n");
+    }
+    public void takeBombRangerDec() {
+        System.out.println("BombRangerDec pas encore implémenté\n");
+    }
+    public void takePrincess() {
+        System.out.println("Princess pas encore implémenté\n");
+    }
 
 
     public boolean isWinner() {
