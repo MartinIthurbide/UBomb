@@ -42,6 +42,12 @@ public abstract class GridRepo {
                 return new Box(pos);
             case Princess:
                 return new Princess(pos);
+            case DoorNextClosed:
+                return new DoorClose(pos);
+            case DoorNextOpened:
+            case DoorPrevOpened:
+                return new DoorOpen(pos);
+
             default:
                 return null;
                 // throw new RuntimeException("EntityCode " + entityCode.name() + " not processed");
