@@ -80,7 +80,7 @@ public class StatusBar {
         lives.setText("?");
         bombRange.setText("?");
         availableBombs.setText("?");
-        keys.setText("?");
+        keys.setText(String.valueOf(game.nbKeys));
     }
 
 }

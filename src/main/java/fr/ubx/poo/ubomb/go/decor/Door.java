@@ -15,6 +15,7 @@ public abstract class Door  extends Decor {
     }
 
     public void takenBy(Player player, int level) {
+
         player.takeDoor(level);
     }
 

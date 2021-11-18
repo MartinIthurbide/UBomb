@@ -4,6 +4,8 @@
 
 package fr.ubx.poo.ubomb.go.character;
 
+import fr.ubx.poo.ubomb.engine.GameEngine;
+import fr.ubx.poo.ubomb.engine.StatusBar;
 import fr.ubx.poo.ubomb.game.Direction;
 import fr.ubx.poo.ubomb.game.EntityCode;
 import fr.ubx.poo.ubomb.game.Game;
@@ -86,10 +88,10 @@ public class Player extends GameObject implements Movable {
         System.out.println("Door pas encore implémenté\n");
     }
     public void takeKey() {
-        System.out.println("Key pas encore implémenté\n");
+        game.nbKeys++;
     }
     public void takeHeart() {
-        System.out.println("Heart pas encore implémenté\n");
+        game.playerHearts++;
     }
     public void takeBombNumberInc() {
         System.out.println("BombNumberInc pas encore implémenté\n");
