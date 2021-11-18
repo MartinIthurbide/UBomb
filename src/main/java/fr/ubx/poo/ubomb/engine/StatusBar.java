@@ -77,7 +77,7 @@ public class StatusBar {
 
     public void update(Game game) {
         updateLevel(1);
-        lives.setText("?");
+        lives.setText(String.valueOf(game.playerHearts));
         bombRange.setText("?");
         availableBombs.setText("?");
         keys.setText(String.valueOf(game.nbKeys));

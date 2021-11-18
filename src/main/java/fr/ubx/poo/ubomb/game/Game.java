@@ -22,11 +22,17 @@ public class Game {
     public final int monsterVelocity;
     public final int playerLives;
     public final int levels;
+    
     public final int monsterLives;
     public final long playerInvisibilityTime;
     public final long monsterInvisibilityTime;
     private final Grid grid;
     private final Player player;
+
+    public int nbKeys = 0;
+    public int playerHearts;
+    public int bombRange;
+    public int bombCapacity;
 
     public Game(String worldPath) {
         try (InputStream input = new FileInputStream(new File(worldPath, "config.properties"))) {
@@ -37,6 +43,7 @@ public class Game {
             monsterVelocity = Integer.parseInt(prop.getProperty("monsterVelocity", "10"));
             levels = Integer.parseInt(prop.getProperty("levels", "1"));
             playerLives = Integer.parseInt(prop.getProperty("playerLives", "3"));
+            playerHearts = playerLives;
             playerInvisibilityTime = Long.parseLong(prop.getProperty("playerInvisibilityTime", "4000"));
             monsterInvisibilityTime = Long.parseLong(prop.getProperty("monsterInvisibilityTime", "1000"));
             monsterLives = Integer.parseInt(prop.getProperty("monsterLives", "1"));

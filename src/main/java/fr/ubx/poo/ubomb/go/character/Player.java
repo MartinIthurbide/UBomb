@@ -11,9 +11,13 @@ import fr.ubx.poo.ubomb.game.EntityCode;
 import fr.ubx.poo.ubomb.game.Game;
 import fr.ubx.poo.ubomb.game.Position;
 import fr.ubx.poo.ubomb.go.GameObject;
+
+import fr.ubx.poo.ubomb.engine.StatusBar;
+
 import fr.ubx.poo.ubomb.go.Movable;
 import fr.ubx.poo.ubomb.go.decor.Decor;
-import fr.ubx.poo.ubomb.go.decor.bonus.Bonus;
+import fr.ubx.poo.ubomb.go.decor.Decor.*;
+import fr.ubx.poo.ubomb.go.decor.bonus.*;
 
 import javax.swing.text.html.parser.Entity;
 
@@ -70,8 +74,25 @@ public class Player extends GameObject implements Movable {
     public void doMove(Direction direction) {
         // Check if we need to pick something up
         Position nextPos = direction.nextPosition(getPosition());
+        Decor d;
+        if ((d = game.getGrid().get(nextPos)) instanceof Bonus) {
+            getBonus((Bonus) d);
+        }
         setPosition(nextPos);
     }
+
+    private void getBonus(Bonus b) {
+        if(b instanceof Key) {
+            takeKey();
+            b.takenBy(this);
+        }
+        if(b instanceof Heart){
+            takeHeart();
+            b.takenBy(this);
+        }
+
+    }
+
 
     @Override
     public boolean isWalkable(Player player) {
