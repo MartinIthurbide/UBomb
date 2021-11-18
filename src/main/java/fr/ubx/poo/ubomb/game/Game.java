@@ -60,12 +60,6 @@ public class Game {
             Position playerPosition = new Position(Integer.parseInt(tokens[0]), Integer.parseInt(tokens[1]));
             player = new Player(this, playerPosition, playerLives);
 
-            // Create the monster
-            /*String[] monsters = prop.getProperty("monster").split("[ :x]+");;
-            if (monsters.length != 2)
-                throw new RuntimeException("Invalid configuration format");
-            Position monsterPosition = new Position(Integer.parseInt(monsters[0]), Integer.parseInt(monsters[1]));
-            monster = new Monster(this, monsterPosition, monsterLives);*/
         }
             catch (IOException ex) {
             System.err.println("Error loading configuration");

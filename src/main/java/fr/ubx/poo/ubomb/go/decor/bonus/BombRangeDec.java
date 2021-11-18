@@ -11,6 +11,6 @@ public class BombRangeDec extends Bonus implements Takeable {
 
     @Override
     public void takenBy(Player player) {
-        player.takeBombRangerDec();
+        explode();
     }
 }

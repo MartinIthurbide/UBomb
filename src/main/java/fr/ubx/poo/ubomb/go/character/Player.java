@@ -90,6 +90,26 @@ public class Player extends GameObject implements Movable {
             takeHeart();
             b.takenBy(this);
         }
+        if(b instanceof BombNumberDec){
+            takeBombNumberDec();
+            b.takenBy(this);
+        }
+        if(b instanceof BombNumberInc){
+            takeBombNumberInc();
+            b.takenBy(this);
+        }
+        if(b instanceof BombRangeDec){
+            takeBombRangerDec();
+            b.takenBy(this);
+        }
+        if(b instanceof BombRangeInc){
+            takeBombRangerInc();
+            b.takenBy(this);
+        }
+        if(b instanceof Princess) {
+            takePrincess();
+            b.takenBy(this);
+        }
 
     }
 
