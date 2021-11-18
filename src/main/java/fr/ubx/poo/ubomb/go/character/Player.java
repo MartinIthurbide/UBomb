@@ -120,6 +120,13 @@ public class Player extends GameObject implements Movable {
     // TODO : Programmer les fonctions de récuperation de bonus
     public void takeDoor(int gotoLevel) {
         System.out.println("Door pas encore implémenté\n");
+        /*if(game.nbKeys > 0){
+            Position nextPos = getDirection().nextPosition(getPosition());
+            if((game.getGrid().get(nextPos)) instanceof Door) {
+                Door d = (Door) game.getGrid().get(nextPos);
+                d.takenBy(this,1);
+            }
+        }*/
     }
     public void takeKey() {
         game.nbKeys++;

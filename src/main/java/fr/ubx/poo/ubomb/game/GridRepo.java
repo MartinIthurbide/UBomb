@@ -45,10 +45,10 @@ public abstract class GridRepo {
             case Princess:
                 return new Princess(pos);
             case DoorNextClosed:
-                return new DoorClose(pos);
+                return new Door(pos,Door.CLOSED);
             case DoorNextOpened:
+                return new Door(pos,Door.OPENED);
             case DoorPrevOpened:
-                return new DoorOpen(pos);
 
             default:
                 return null;

@@ -15,13 +15,21 @@ public class Door  extends Decor {
         super(game, position);
     }
 
-    public Door(Position position) {
+    public Door(Position position, int etat) {
         super(position);
+        state = etat;
+    }
+
+    public int getState() {
+        return state;
     }
 
     public void takenBy(Player player, int level) {
-
-        player.takeDoor(level);
+        if(state == OPENED)
+            player.takeDoor(level);
+        else {
+            state = OPENED; // SI ET SEULEMENT SI CA A OUVERT LA PORTE
+        }
     }
 
 
