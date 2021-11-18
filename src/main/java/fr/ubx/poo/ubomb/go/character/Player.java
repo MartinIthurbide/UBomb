@@ -135,24 +135,27 @@ public class Player extends GameObject implements Movable {
         game.playerHearts++;
     }
     public void takeBombNumberInc() {
-        System.out.println("BombNumberInc pas encore implémenté\n");
+        if(game.bombCapacity < game.bombBagCapacity)
+            game.bombCapacity++;
     }
     public void takeBombNumberDec() {
-        System.out.println("BombNumberDec pas encore implémenté\n");
+        if(game.bombCapacity > 1)
+            game.bombCapacity--;
     }
     public void takeBombRangerInc() {
-        System.out.println("BombRangerInc pas encore implémenté\n");
+        game.bombRange++;
     }
     public void takeBombRangerDec() {
-        System.out.println("BombRangerDec pas encore implémenté\n");
+        if(game.bombRange > 1)
+            game.bombRange--;
     }
     public void takePrincess() {
-        System.out.println("Princess pas encore implémenté\n");
+        game.won = true;
     }
 
 
     public boolean isWinner() {
-        return false;
+        return game.won;
     }
 
 

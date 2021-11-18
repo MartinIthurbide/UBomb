@@ -14,7 +14,6 @@ public class Princess extends Bonus implements Takeable {
 
     @Override
     public void takenBy(Player player) {
-        if(player.getPosition() == getPosition())
-            player.takePrincess();
+        explode();
     }
 }

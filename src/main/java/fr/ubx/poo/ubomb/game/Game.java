@@ -31,8 +31,10 @@ public class Game {
 
     public int nbKeys = 0;
     public int playerHearts;
-    public int bombRange;
-    public int bombCapacity;
+    public int bombRange = 1;
+    public int bombCapacity = 1;
+
+    public boolean won = false;
 
     public Game(String worldPath) {
         try (InputStream input = new FileInputStream(new File(worldPath, "config.properties"))) {

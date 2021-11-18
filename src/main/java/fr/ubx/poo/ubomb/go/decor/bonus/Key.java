@@ -21,6 +21,5 @@ public class Key extends Bonus implements Takeable {
 
     public void takenBy(Player player) {
             explode();
-
     }
 }
