@@ -8,6 +8,7 @@ import fr.ubx.poo.ubomb.game.Direction;
 import fr.ubx.poo.ubomb.game.Game;
 import fr.ubx.poo.ubomb.go.character.Player;
 import fr.ubx.poo.ubomb.go.decor.Decor;
+import fr.ubx.poo.ubomb.go.decor.DecorMonster;
 import fr.ubx.poo.ubomb.view.*;
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
@@ -73,7 +74,10 @@ public final class GameEngine {
 
         // Create sprites
         for (Decor decor : game.getGrid().values()) {
-            sprites.add(SpriteFactory.create(layer, decor));
+            if (decor instanceof DecorMonster)
+                sprites.add(SpriteMonster.create(layer,decor));
+            else
+                sprites.add(SpriteFactory.create(layer, decor));
             decor.setModified(true);
         }
         sprites.add(new SpritePlayer(layer, player));

@@ -22,6 +22,7 @@ public class Game {
     public final int monsterVelocity;
     public final int playerLives;
     public final int levels;
+    public final int monsterLives;
     public final long playerInvisibilityTime;
     public final long monsterInvisibilityTime;
     private final Grid grid;
@@ -38,6 +39,7 @@ public class Game {
             playerLives = Integer.parseInt(prop.getProperty("playerLives", "3"));
             playerInvisibilityTime = Long.parseLong(prop.getProperty("playerInvisibilityTime", "4000"));
             monsterInvisibilityTime = Long.parseLong(prop.getProperty("monsterInvisibilityTime", "1000"));
+            monsterLives = Integer.parseInt(prop.getProperty("monsterLives", "1"));
 
             // Load the world
             String prefix = prop.getProperty("prefix");
@@ -51,7 +53,14 @@ public class Game {
             Position playerPosition = new Position(Integer.parseInt(tokens[0]), Integer.parseInt(tokens[1]));
             player = new Player(this, playerPosition, playerLives);
 
-        } catch (IOException ex) {
+            // Create the monster
+            /*String[] monsters = prop.getProperty("monster").split("[ :x]+");;
+            if (monsters.length != 2)
+                throw new RuntimeException("Invalid configuration format");
+            Position monsterPosition = new Position(Integer.parseInt(monsters[0]), Integer.parseInt(monsters[1]));
+            monster = new Monster(this, monsterPosition, monsterLives);*/
+        }
+            catch (IOException ex) {
             System.err.println("Error loading configuration");
             throw new RuntimeException("Invalid configuration format");
         }

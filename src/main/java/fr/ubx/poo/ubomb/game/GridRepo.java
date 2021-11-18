@@ -30,6 +30,8 @@ public abstract class GridRepo {
                 return new Key(pos);
             case Heart:
                 return new Heart(pos);
+            case Monster:
+                return new DecorMonster(pos);
             case BombNumberInc:
                 return new BombNumberInc(pos);
             case BombNumberDec:
