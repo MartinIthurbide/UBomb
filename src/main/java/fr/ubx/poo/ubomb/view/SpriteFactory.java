@@ -41,11 +41,8 @@ public final class SpriteFactory {
         if (gameObject instanceof DoorClose)
             return new Sprite(layer, DOOR_CLOSED.getImage(),gameObject);*/
         if (gameObject instanceof Door) {
-            Door d = (Door) gameObject;
-            if (d.getState() == Door.OPENED)
-                return new Sprite(layer, DOOR_OPENED.getImage(),gameObject);
-            else
-                return new Sprite(layer, DOOR_CLOSED.getImage(),gameObject);
+            System.out.println("DISPLAYING CLOSED DOOR");
+            return new Sprite(layer, DOOR_CLOSED.getImage(),gameObject);
         }
 
         throw new RuntimeException("Unsupported sprite for decor " + gameObject);

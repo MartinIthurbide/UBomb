@@ -25,10 +25,10 @@ public class Door  extends Decor {
     }
 
     public void takenBy(Player player, int level) {
-        if(state == OPENED)
-            player.takeDoor(level);
-        else {
-            state = OPENED; // SI ET SEULEMENT SI CA A OUVERT LA PORTE
+        if(getState() == CLOSED) {
+            state = OPENED;
+            boolean b = isModified();
+            b = true;
         }
     }
 

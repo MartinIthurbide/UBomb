@@ -4,12 +4,14 @@
 
 package fr.ubx.poo.ubomb.go.character;
 
+import fr.ubx.poo.ubomb.engine.Input;
 import fr.ubx.poo.ubomb.game.Direction;
 import fr.ubx.poo.ubomb.game.Game;
 import fr.ubx.poo.ubomb.game.Position;
 import fr.ubx.poo.ubomb.go.GameObject;
 
 import fr.ubx.poo.ubomb.go.Movable;
+import fr.ubx.poo.ubomb.go.decor.Box;
 import fr.ubx.poo.ubomb.go.decor.Decor;
 import fr.ubx.poo.ubomb.go.decor.Door;
 import fr.ubx.poo.ubomb.go.decor.bonus.*;
@@ -116,17 +118,40 @@ public class Player extends GameObject implements Movable {
     public void explode() {
     }
 
+    public void pushBox (Box box, Input input){
+        Position boxPosition = box.getPosition();
+        Direction playerDirection = getDirection();
+        Position playerNextPosition = playerDirection.nextPosition(getPosition());
+
+        if (playerNextPosition == boxPosition){
+            if (input.isMoveUp() && box.canMove(Direction.UP)){
+                // appel à la fonction move de BOX
+                box.doMove(Direction.UP);
+            }
+            if (input.isMoveDown() && box.canMove(Direction.DOWN)){
+                box.doMove(Direction.UP);
+            }
+            if (input.isMoveLeft() && box.canMove(Direction.LEFT)){
+                box.doMove(Direction.UP);
+            }
+            if (input.isMoveRight() && box.canMove(Direction.RIGHT)){
+                box.doMove(Direction.UP);
+            }
+        }
+    }
+
     // Example of methods to define by the player
     // TODO : Programmer les fonctions de récuperation de bonus
     public void takeDoor(int gotoLevel) {
-        System.out.println("Door pas encore implémenté\n");
-        /*if(game.nbKeys > 0){
+        if(game.nbKeys > 0){
             Position nextPos = getDirection().nextPosition(getPosition());
             if((game.getGrid().get(nextPos)) instanceof Door) {
                 Door d = (Door) game.getGrid().get(nextPos);
+                System.out.println(d.getState());
                 d.takenBy(this,1);
+                System.out.println(d.getState());
             }
-        }*/
+        }
     }
     public void takeKey() {
         game.nbKeys++;
@@ -156,11 +181,6 @@ public class Player extends GameObject implements Movable {
 
     public boolean isWinner() {
         return game.won;
-    }
-
-    public void openDoor(){
-        // if input pour ouvrir porte
-
     }
 
 }

@@ -7,6 +7,7 @@ package fr.ubx.poo.ubomb.engine;
 import fr.ubx.poo.ubomb.game.Direction;
 import fr.ubx.poo.ubomb.game.Game;
 import fr.ubx.poo.ubomb.go.character.Player;
+import fr.ubx.poo.ubomb.go.decor.Box;
 import fr.ubx.poo.ubomb.go.decor.Decor;
 import fr.ubx.poo.ubomb.go.decor.DecorMonster;
 import fr.ubx.poo.ubomb.view.*;
@@ -99,6 +100,7 @@ public final class GameEngine {
                 cleanupSprites();
                 render();
                 statusBar.update(game);
+                //sprites.add(SpriteFactory.updateFactory(layer,game)
             }
         };
     }
@@ -110,6 +112,8 @@ public final class GameEngine {
     }
 
     private void checkCollision(long now) {
+        Box box = (Box) game.getGrid().get(player.getDirection().nextPosition(player.getPosition()));
+        player.pushBox(box,input);
     }
 
     private void processInput(long now) {
@@ -127,7 +131,7 @@ public final class GameEngine {
             player.requestMove(Direction.UP);
             input.clear();
         } else if (input.isKey()){
-            player.openDoor();
+            player.takeDoor(1);
         }
         input.clear();
     }

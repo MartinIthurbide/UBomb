@@ -46,9 +46,9 @@ public abstract class GridRepo {
                 return new Princess(pos);
             case DoorNextClosed:
                 return new Door(pos,Door.CLOSED);
+            case DoorPrevOpened:
             case DoorNextOpened:
                 return new Door(pos,Door.OPENED);
-            case DoorPrevOpened:
 
             default:
                 return null;
