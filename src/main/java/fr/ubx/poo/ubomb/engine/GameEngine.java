@@ -118,8 +118,12 @@ public final class GameEngine {
         if (gameObject instanceof Box){
             Box box = (Box) gameObject;
             if (box.canMove(player.getDirection())){
-                player.update(now);
-                System.out.println("Je suis la\n");
+                System.out.println("Room for box to move\n");
+                if(input.isMoveLeft()) {
+                    System.out.println("request : MOVE LEFT\n");
+                    player.update(now);
+                }
+
             }
         }
     }

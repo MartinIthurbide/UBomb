@@ -46,6 +46,7 @@ public class Player extends GameObject implements Movable {
     }
 
     public final boolean canMove(Direction direction) {
+        // Revoir pour voir si on souhaite marcher sur une Box
         boolean can = false;
         Position nextPos = direction.nextPosition(getPosition());
         if (game.inside(nextPos)) {

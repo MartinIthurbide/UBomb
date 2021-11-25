@@ -4,6 +4,7 @@
 
 package fr.ubx.poo.ubomb.engine;
 
+import fr.ubx.poo.ubomb.game.Direction;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
@@ -84,5 +85,21 @@ public final class Input {
 
     public boolean isExit() {
         return is(ESCAPE);
+    }
+
+    public boolean isMoveDirection(Direction direction) {
+        if (direction == Direction.UP){
+            return isMoveUp();
+        }
+        if (direction == Direction.DOWN){
+            return isMoveDown();
+        }
+        if (direction == Direction.LEFT){
+            return isMoveLeft();
+        }
+        if (direction == Direction.RIGHT){
+            return isMoveRight();
+        }
+        return false;
     }
 }
