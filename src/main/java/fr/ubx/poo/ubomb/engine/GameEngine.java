@@ -6,6 +6,7 @@ package fr.ubx.poo.ubomb.engine;
 
 import fr.ubx.poo.ubomb.game.Direction;
 import fr.ubx.poo.ubomb.game.Game;
+import fr.ubx.poo.ubomb.go.GameObject;
 import fr.ubx.poo.ubomb.go.character.Player;
 import fr.ubx.poo.ubomb.go.decor.Box;
 import fr.ubx.poo.ubomb.go.decor.Decor;
@@ -95,6 +96,7 @@ public final class GameEngine {
                 createNewBombs(now);
                 checkCollision(now);
                 checkExplosions();
+                player.update(now);
 
                 // Graphic update
                 cleanupSprites();
@@ -112,8 +114,14 @@ public final class GameEngine {
     }
 
     private void checkCollision(long now) {
-        Box box = (Box) game.getGrid().get(player.getDirection().nextPosition(player.getPosition()));
-        player.pushBox(box,input);
+        GameObject gameObject =  game.getGrid().get(player.getDirection().nextPosition(player.getPosition()));
+        if (gameObject instanceof Box){
+            Box box = (Box) gameObject;
+            if (box.canMove(player.getDirection())){
+                player.update(now);
+                System.out.println("Je suis la\n");
+            }
+        }
     }
 
     private void processInput(long now) {

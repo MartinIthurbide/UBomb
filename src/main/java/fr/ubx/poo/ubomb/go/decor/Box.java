@@ -11,17 +11,18 @@ public class Box extends Decor implements Movable {
 
     @Override
     public boolean canMove(Direction direction) {
-        if (!game.inside(direction.nextPosition(this.getPosition())))
-            return false;
-        Decor d = this.game.getGrid().get(direction.nextPosition(this.getPosition()));
-        if (d != null)
-            return false;
-        return true;
+        boolean can = false;
+        Position nextPos = direction.nextPosition(getPosition());
+        if (game.inside(nextPos)) {
+            can = game.getGrid().get(nextPos) != null;
+        }
+        return can;
     }
 
     @Override
     public void doMove(Direction direction) {
         Position nextPos = direction.nextPosition(getPosition());
-        setPosition(nextPos);
+        if (this.canMove(direction))
+            setPosition(nextPos);
     }
 }

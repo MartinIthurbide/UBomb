@@ -123,20 +123,18 @@ public class Player extends GameObject implements Movable {
         Direction playerDirection = getDirection();
         Position playerNextPosition = playerDirection.nextPosition(getPosition());
 
-        if (playerNextPosition == boxPosition){
-            if (input.isMoveUp() && box.canMove(Direction.UP)){
-                // appel à la fonction move de BOX
+        if (input.isMoveUp() && box.canMove(Direction.UP)){
+            // appel à la fonction move de BOX
+            box.doMove(Direction.UP);
+        }
+        if (input.isMoveDown() && box.canMove(Direction.DOWN)){
+            box.doMove(Direction.UP);
+        }
+        if (input.isMoveLeft() && box.canMove(Direction.LEFT)){
+            box.doMove(Direction.UP);
+        }
+        if (input.isMoveRight() && box.canMove(Direction.RIGHT)){
                 box.doMove(Direction.UP);
-            }
-            if (input.isMoveDown() && box.canMove(Direction.DOWN)){
-                box.doMove(Direction.UP);
-            }
-            if (input.isMoveLeft() && box.canMove(Direction.LEFT)){
-                box.doMove(Direction.UP);
-            }
-            if (input.isMoveRight() && box.canMove(Direction.RIGHT)){
-                box.doMove(Direction.UP);
-            }
         }
     }
 
