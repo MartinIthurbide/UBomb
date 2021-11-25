@@ -5,8 +5,8 @@ import fr.ubx.poo.ubomb.go.Movable;
 import fr.ubx.poo.ubomb.go.character.Player;
 
 public class Box extends Decor implements Movable {
-    public Box(Game game, Position position) {
-        super(game,position);
+    public Box(Position position) {
+        super(position);
     }
 
     @Override
@@ -14,7 +14,7 @@ public class Box extends Decor implements Movable {
         boolean can = false;
         Position nextPos = direction.nextPosition(getPosition());
         if (game.inside(nextPos)) {
-            can = game.getGrid().get(nextPos) == null;
+            can = game.getGrid().get(nextPos) != null;
         }
         return can;
     }

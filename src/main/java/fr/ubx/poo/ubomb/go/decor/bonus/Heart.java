@@ -11,6 +11,7 @@ public class Heart extends Bonus implements Takeable {
 
     @Override
     public void takenBy(Player player) {
+        player.takeHeart();
         explode();
     }
 }

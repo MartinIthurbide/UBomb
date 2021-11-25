@@ -56,7 +56,8 @@ public final class Input {
     // -------------------------------------------------
     // Evaluate bitset of pressed keys and return the player input.
     // If direction and its opposite direction are pressed simultaneously, then the
-    // direction isn't handled.
+    // direction is
+    // n't handled.
     // -------------------------------------------------
 
     public boolean isMoveUp() {
@@ -87,19 +88,5 @@ public final class Input {
         return is(ESCAPE);
     }
 
-    public boolean isMoveDirection(Direction direction) {
-        if (direction == Direction.UP){
-            return isMoveUp();
-        }
-        if (direction == Direction.DOWN){
-            return isMoveDown();
-        }
-        if (direction == Direction.LEFT){
-            return isMoveLeft();
-        }
-        if (direction == Direction.RIGHT){
-            return isMoveRight();
-        }
-        return false;
-    }
+
 }

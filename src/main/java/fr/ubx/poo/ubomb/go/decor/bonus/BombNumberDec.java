@@ -11,6 +11,7 @@ public class BombNumberDec extends Bonus implements Takeable {
 
     @Override
     public void takenBy(Player player) {
+        player.takeBombNumberDec();
         explode();
     }
 }

@@ -14,6 +14,7 @@ public class Princess extends Bonus implements Takeable {
 
     @Override
     public void takenBy(Player player) {
+        player.takePrincess();
         explode();
     }
 }

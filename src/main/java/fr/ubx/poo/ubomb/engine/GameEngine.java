@@ -6,11 +6,13 @@ package fr.ubx.poo.ubomb.engine;
 
 import fr.ubx.poo.ubomb.game.Direction;
 import fr.ubx.poo.ubomb.game.Game;
+import fr.ubx.poo.ubomb.go.Bomb;
 import fr.ubx.poo.ubomb.go.GameObject;
 import fr.ubx.poo.ubomb.go.character.Player;
 import fr.ubx.poo.ubomb.go.decor.Box;
 import fr.ubx.poo.ubomb.go.decor.Decor;
 import fr.ubx.poo.ubomb.go.decor.DecorMonster;
+import fr.ubx.poo.ubomb.go.decor.bonus.Bonus;
 import fr.ubx.poo.ubomb.view.*;
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
@@ -29,6 +31,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
+import static fr.ubx.poo.ubomb.view.ImageResource.BOMB_0;
+
 
 public final class GameEngine {
 
@@ -42,6 +46,7 @@ public final class GameEngine {
     private StatusBar statusBar;
     private Pane layer;
     private Input input;
+    private boolean bombInput = false;
 
 
     public GameEngine(final String windowTitle, Game game, final Stage stage) {
@@ -111,6 +116,13 @@ public final class GameEngine {
     }
 
     private void createNewBombs(long now) {
+        if (player.dropBomb() && bombInput == true){
+            System.out.println("Je suis dans createBomb\n");
+            Bomb bombe = new Bomb(game,player.getPosition());
+            sprites.add(new SpriteBomb(layer,BOMB_0.getImage(),bombe));
+            game.bombCapacity --;
+        }
+        bombInput = false;
     }
 
     private void checkCollision(long now) {
@@ -144,6 +156,9 @@ public final class GameEngine {
             input.clear();
         } else if (input.isKey()){
             player.takeDoor(1);
+        } else if (input.isBomb()){
+            player.dropBomb();
+            bombInput = true;
         }
         input.clear();
     }
@@ -171,7 +186,8 @@ public final class GameEngine {
     private void update(long now) {
         player.update(now);
 
-        if (player.getLives() == 0) {
+        if (player.getLives() != 0) {
+        } else {
             gameLoop.stop();
             showMessage("Perdu!", Color.RED);
         }

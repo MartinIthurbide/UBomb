@@ -41,7 +41,7 @@ public abstract class GridRepo {
             case BombRangeDec:
                 return new BombRangeDec(pos);
             case Box:
-                return new Box(game,pos);
+                return new Box(pos);
             case Princess:
                 return new Princess(pos);
             case DoorNextClosed:

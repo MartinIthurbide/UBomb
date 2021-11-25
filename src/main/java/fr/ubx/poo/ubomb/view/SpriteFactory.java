@@ -4,6 +4,7 @@
 
 package fr.ubx.poo.ubomb.view;
 
+import fr.ubx.poo.ubomb.go.Bomb;
 import fr.ubx.poo.ubomb.go.GameObject;
 import fr.ubx.poo.ubomb.go.decor.*;
 import fr.ubx.poo.ubomb.go.decor.Box;
@@ -36,6 +37,8 @@ public final class SpriteFactory {
             return new Sprite(layer, BOX.getImage(), gameObject);
         if (gameObject instanceof Princess)
             return new Sprite(layer, PRINCESS.getImage(), gameObject);
+        if (gameObject instanceof Bomb)
+            return new Sprite(layer, BOMB_0.getImage(),gameObject);
         /*if (gameObject instanceof DoorOpen)
             return new Sprite(layer, DOOR_OPENED.getImage(),gameObject);
         if (gameObject instanceof DoorClose)
