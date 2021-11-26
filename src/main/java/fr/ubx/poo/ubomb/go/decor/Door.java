@@ -29,6 +29,7 @@ public class Door  extends Decor {
             state = OPENED;
             boolean b = isModified();
             b = true;
+            explode();
         }
     }
 

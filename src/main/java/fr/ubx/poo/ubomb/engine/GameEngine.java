@@ -12,6 +12,7 @@ import fr.ubx.poo.ubomb.go.character.Player;
 import fr.ubx.poo.ubomb.go.decor.Box;
 import fr.ubx.poo.ubomb.go.decor.Decor;
 import fr.ubx.poo.ubomb.go.decor.DecorMonster;
+import fr.ubx.poo.ubomb.go.decor.Door;
 import fr.ubx.poo.ubomb.go.decor.bonus.Bonus;
 import fr.ubx.poo.ubomb.view.*;
 import javafx.animation.AnimationTimer;
@@ -32,6 +33,7 @@ import java.util.List;
 import java.util.Set;
 
 import static fr.ubx.poo.ubomb.view.ImageResource.BOMB_0;
+import static fr.ubx.poo.ubomb.view.ImageResource.DOOR_OPENED;
 
 
 public final class GameEngine {
@@ -156,6 +158,8 @@ public final class GameEngine {
             input.clear();
         } else if (input.isKey()){
             player.takeDoor(1);
+            Door door = new Door(game, player.getDirection().nextPosition(player.getPosition()));
+            sprites.add(new SpriteFactory(layer,DOOR_OPENED.getImage(),door));
         } else if (input.isBomb()){
             player.dropBomb();
             bombInput = true;

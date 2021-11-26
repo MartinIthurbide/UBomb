@@ -9,12 +9,17 @@ import fr.ubx.poo.ubomb.go.GameObject;
 import fr.ubx.poo.ubomb.go.decor.*;
 import fr.ubx.poo.ubomb.go.decor.Box;
 import fr.ubx.poo.ubomb.go.decor.bonus.*;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 
 import static fr.ubx.poo.ubomb.view.ImageResource.*;
 
 
-public final class SpriteFactory {
+public final class SpriteFactory extends Sprite {
+
+    public SpriteFactory(Pane layer, Image image, GameObject gameObject) {
+        super(layer, image, gameObject);
+    }
 
     public static Sprite create(Pane layer, GameObject gameObject) {
         if (gameObject instanceof Stone)
