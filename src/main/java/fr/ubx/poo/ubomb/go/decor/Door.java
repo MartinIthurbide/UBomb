@@ -33,5 +33,11 @@ public class Door  extends Decor {
         }
     }
 
+    public boolean isWalkable(Player player) {
+        if (getState() == OPENED)
+            return true;
+        return false;
+    }
+
 
 }

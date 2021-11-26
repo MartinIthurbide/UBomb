@@ -127,6 +127,17 @@ public final class GameEngine {
         bombInput = false;
     }
 
+    private void openDoor (){
+        if(game.nbKeys > 0){
+            if (player.takeDoor(1)){
+                Door door = new Door(game, player.getDirection().nextPosition(player.getPosition()));
+                sprites.add(new SpriteFactory(layer,DOOR_OPENED.getImage(),door));
+                door.isWalkable(player);
+                game.nbKeys --;
+            }
+        }
+    }
+
     private void checkCollision(long now) {
         GameObject gameObject =  game.getGrid().get(player.getDirection().nextPosition(player.getPosition()));
         if (gameObject instanceof Box){
@@ -157,9 +168,7 @@ public final class GameEngine {
             player.requestMove(Direction.UP);
             input.clear();
         } else if (input.isKey()){
-            player.takeDoor(1);
-            Door door = new Door(game, player.getDirection().nextPosition(player.getPosition()));
-            sprites.add(new SpriteFactory(layer,DOOR_OPENED.getImage(),door));
+            openDoor();
         } else if (input.isBomb()){
             player.dropBomb();
             bombInput = true;

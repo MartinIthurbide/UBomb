@@ -100,16 +100,16 @@ public class Player extends GameObject implements Movable {
 
     // Example of methods to define by the player
     // TODO : Programmer les fonctions de récuperation de bonus
-    public void takeDoor(int gotoLevel) {
-        if(game.nbKeys > 0){
-            Position nextPos = getDirection().nextPosition(getPosition());
+    public boolean takeDoor(int gotoLevel) {
+        Position nextPos = getDirection().nextPosition(getPosition());
             if((game.getGrid().get(nextPos)) instanceof Door) {
                 Door d = (Door) game.getGrid().get(nextPos);
                 System.out.println(d.getState());
                 d.takenBy(this,1);
                 System.out.println(d.getState());
+                return true;
             }
-        }
+            return false;
     }
     public void takeKey() {
         game.nbKeys++;
