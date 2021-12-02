@@ -5,8 +5,14 @@ import fr.ubx.poo.ubomb.game.Position;
 import fr.ubx.poo.ubomb.go.character.Player;
 
 public class Bomb extends GameObject{
+
+    private int range;
+    private int cptBomb;
+    private int etatBomb;
+
     public Bomb(Game game, Position position) {
         super(game, position);
+        this.etatBomb = 3;
     }
 
     public Bomb(Position position) {
@@ -16,5 +22,30 @@ public class Bomb extends GameObject{
     @Override
     public boolean isWalkable(Player player) {
         return true;
+    }
+
+    private void reinitCpt(int cpt) {
+        cptBomb = cpt;
+    }
+
+    public void update() {
+        cptBomb--;
+        if (cptBomb == 0) {
+            reinitCpt(15);
+            etatBomb--;
+            }
+    }
+
+    private void boom() {
+        remove();
+        explode();
+    }
+
+    public int getRange() {
+        return range;
+    }
+
+    public int getEtatBomb() {
+        return etatBomb;
     }
 }

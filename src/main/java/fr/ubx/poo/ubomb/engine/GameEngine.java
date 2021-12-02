@@ -27,10 +27,7 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import static fr.ubx.poo.ubomb.view.ImageResource.BOMB_0;
 import static fr.ubx.poo.ubomb.view.ImageResource.DOOR_OPENED;
@@ -50,6 +47,7 @@ public final class GameEngine {
     private Input input;
     private boolean bombInput = false;
 
+    private ArrayList<Bomb> bombList = new ArrayList<>();
 
     public GameEngine(final String windowTitle, Game game, final Stage stage) {
         this.stage = stage;
@@ -123,12 +121,21 @@ public final class GameEngine {
     }
 
     private void checkExplosions() {
+        for (Bomb b: bombList
+             ) {
+            b.update();
+            if(b.getEtatBomb() == 0) {
+                b.remove();
+                b.explode();
+            }
+        }
     }
 
     private void createNewBombs(long now) {
         if (player.dropBomb() && bombInput){
-            System.out.println("Je suis dans createBomb\n");
+            //System.out.println("Je suis  dans createBomb\n");
             Bomb bombe = new Bomb(game,player.getPosition());
+            bombList.add(bombe);
             sprites.add(new SpriteBomb(layer,BOMB_0.getImage(),bombe));
             game.bombCapacity --;
         }
