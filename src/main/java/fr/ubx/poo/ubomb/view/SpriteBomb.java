@@ -1,5 +1,7 @@
 package fr.ubx.poo.ubomb.view;
 
+import fr.ubx.poo.ubomb.game.Direction;
+import fr.ubx.poo.ubomb.go.Bomb;
 import fr.ubx.poo.ubomb.go.GameObject;
 import fr.ubx.poo.ubomb.go.decor.Stone;
 import javafx.scene.image.Image;
@@ -13,9 +15,14 @@ public class SpriteBomb extends Sprite{
         super(layer, image, gameObject);
     }
 
-    public static Sprite create(Pane layer, GameObject gameObject) {
-        if (gameObject instanceof Stone)
-            return new Sprite(layer, BOMB_0.getImage(), gameObject);
-        throw new RuntimeException("Unsupported sprite for bomb " + gameObject);
+    @Override
+    public void updateImage() {
+        Bomb b = (Bomb) getGameObject();
+        Image image = getImage(b.getEtatBomb());
+        setImage(image);
+
+    }
+    public Image getImage(int state) {
+        return ImageResource.getBomb(state);
     }
 }

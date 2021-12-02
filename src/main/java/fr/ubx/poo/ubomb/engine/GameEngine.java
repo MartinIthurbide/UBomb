@@ -119,31 +119,15 @@ public final class GameEngine {
         };
     }
 
-    private void changeImageBomb(Bomb bombe){
-        switch (bombe.getEtatBomb()){
-            case 3:
-                sprites.add(new SpriteBomb(layer,BOMB_3.getImage(),bombe));
-                sprites.clear();
-                System.out.println("3\n");
-            case 2:
-                sprites.add(new SpriteBomb(layer,BOMB_2.getImage(),bombe));
-                sprites.clear();
-                System.out.println("2\n");
-            case 1:
-                sprites.add(new SpriteBomb(layer,BOMB_1.getImage(),bombe));
-                sprites.clear();
-                System.out.println("1\n");
-            case 0:
-                sprites.add(new SpriteBomb(layer,BOMB_0.getImage(),bombe));
-                bombe.remove();
-                bombe.explode();
-        }
-    }
-
     private void checkExplosions() {
         for(Bomb b: bombs){
             b.update();
-            changeImageBomb(b);
+            //changeImageBomb(b);
+            if(b.getEtatBomb() == 0) {
+                b.explode();
+                b.remove();
+                // passser l'etat de l'explosion à true
+            }
         }
     }
 

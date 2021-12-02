@@ -39,6 +39,10 @@ public class Player extends GameObject implements Movable {
         return direction;
     }
 
+    public void getBackBomb() {
+
+    }
+
     public void requestMove(Direction direction) {
         if (direction != this.direction) {
             this.direction = direction;
