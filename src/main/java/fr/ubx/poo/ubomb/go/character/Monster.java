@@ -11,6 +11,8 @@ public class Monster extends GameObject implements Movable {
     private Direction direction;
     private int lives;
 
+    private int velCpt = game.monsterVelocity;
+
 
     public Monster(Game game, Position position, int lives) {
         super(game, position);
@@ -18,12 +20,20 @@ public class Monster extends GameObject implements Movable {
         this.lives = lives;
     }
 
+    void reinitCpt(int addValue) {
+        this.velCpt = game.monsterVelocity + addValue;
+    }
+
+
     public void update(long now) {
-        direction = Direction.random();
-        if(now%(game.monsterVelocity+5)==0)
+        velCpt--;
+        if(velCpt == 0) {
+            reinitCpt(5);
+            direction = Direction.random();
             if (canMove(direction)) {
                 doMove(direction);
             }
+        }
     }
 
     @Override
