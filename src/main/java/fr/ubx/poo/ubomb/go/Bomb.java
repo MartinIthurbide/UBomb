@@ -30,7 +30,8 @@ public class Bomb extends GameObject{
 
     public void update() {
         cptBomb--;
-        if (cptBomb == 0) {
+        System.out.println("cpt bombe : "+cptBomb+"\n");
+        if (cptBomb <= 0) {
             reinitCpt(15);
             etatBomb--;
             }

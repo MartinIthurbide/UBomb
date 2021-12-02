@@ -29,8 +29,7 @@ import javafx.stage.Stage;
 
 import java.util.*;
 
-import static fr.ubx.poo.ubomb.view.ImageResource.BOMB_0;
-import static fr.ubx.poo.ubomb.view.ImageResource.DOOR_OPENED;
+import static fr.ubx.poo.ubomb.view.ImageResource.*;
 
 
 public final class GameEngine {
@@ -40,6 +39,7 @@ public final class GameEngine {
     private final Game game;
     private final Player player;
     private final List<Sprite> sprites = new LinkedList<>();
+    private final ArrayList<Bomb> bombs = new ArrayList<>();
     private final Set<Sprite> cleanUpSprites = new HashSet<>();
     private final Stage stage;
     private StatusBar statusBar;
@@ -47,7 +47,6 @@ public final class GameEngine {
     private Input input;
     private boolean bombInput = false;
 
-    private ArrayList<Bomb> bombList = new ArrayList<>();
 
     public GameEngine(final String windowTitle, Game game, final Stage stage) {
         this.stage = stage;
@@ -120,22 +119,39 @@ public final class GameEngine {
         };
     }
 
+    private void changeImageBomb(Bomb bombe){
+        switch (bombe.getEtatBomb()){
+            case 3:
+                sprites.add(new SpriteBomb(layer,BOMB_3.getImage(),bombe));
+                sprites.clear();
+                System.out.println("3\n");
+            case 2:
+                sprites.add(new SpriteBomb(layer,BOMB_2.getImage(),bombe));
+                sprites.clear();
+                System.out.println("2\n");
+            case 1:
+                sprites.add(new SpriteBomb(layer,BOMB_1.getImage(),bombe));
+                sprites.clear();
+                System.out.println("1\n");
+            case 0:
+                sprites.add(new SpriteBomb(layer,BOMB_0.getImage(),bombe));
+                bombe.remove();
+                bombe.explode();
+        }
+    }
+
     private void checkExplosions() {
-        for (Bomb b: bombList
-             ) {
+        for(Bomb b: bombs){
             b.update();
-            if(b.getEtatBomb() == 0) {
-                b.remove();
-                b.explode();
-            }
+            changeImageBomb(b);
         }
     }
 
     private void createNewBombs(long now) {
         if (player.dropBomb() && bombInput){
-            //System.out.println("Je suis  dans createBomb\n");
+            System.out.println("Je suis dans createBomb\n");
             Bomb bombe = new Bomb(game,player.getPosition());
-            bombList.add(bombe);
+            bombs.add(bombe);
             sprites.add(new SpriteBomb(layer,BOMB_0.getImage(),bombe));
             game.bombCapacity --;
         }
