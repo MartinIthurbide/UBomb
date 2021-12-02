@@ -40,6 +40,7 @@ public class GridRepoSample extends GridRepo {
                 Position position = new Position(i, j);
                 EntityCode entityCode = entities[j][i];
                 grid.set(position, processEntityCode(entityCode, position));
+
             }
         }
 

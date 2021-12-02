@@ -8,10 +8,10 @@ import fr.ubx.poo.ubomb.game.Direction;
 import fr.ubx.poo.ubomb.game.Game;
 import fr.ubx.poo.ubomb.go.Bomb;
 import fr.ubx.poo.ubomb.go.GameObject;
+import fr.ubx.poo.ubomb.go.character.Monster;
 import fr.ubx.poo.ubomb.go.character.Player;
 import fr.ubx.poo.ubomb.go.decor.Box;
 import fr.ubx.poo.ubomb.go.decor.Decor;
-import fr.ubx.poo.ubomb.go.decor.DecorMonster;
 import fr.ubx.poo.ubomb.go.decor.Door;
 import fr.ubx.poo.ubomb.go.decor.bonus.Bonus;
 import fr.ubx.poo.ubomb.view.*;
@@ -83,12 +83,15 @@ public final class GameEngine {
 
         // Create sprites
         for (Decor decor : game.getGrid().values()) {
-            if (decor instanceof DecorMonster)
-                sprites.add(SpriteMonster.create(layer,decor));
-            else
-                sprites.add(SpriteFactory.create(layer, decor));
+            sprites.add(SpriteFactory.create(layer, decor));
             decor.setModified(true);
         }
+
+        // Creates monsters
+        for (Monster m : game.getMonsters()) {
+            sprites.add(new SpriteMonster(layer,m));
+        }
+
         sprites.add(new SpritePlayer(layer, player));
     }
 
@@ -105,6 +108,11 @@ public final class GameEngine {
                 checkExplosions();
                 player.update(now);
 
+                for (Monster m: game.getMonsters()
+                     ) {
+                    m.update(now);
+                }
+
                 // Graphic update
                 cleanupSprites();
                 render();
@@ -118,7 +126,7 @@ public final class GameEngine {
     }
 
     private void createNewBombs(long now) {
-        if (player.dropBomb() && bombInput == true){
+        if (player.dropBomb() && bombInput){
             System.out.println("Je suis dans createBomb\n");
             Bomb bombe = new Bomb(game,player.getPosition());
             sprites.add(new SpriteBomb(layer,BOMB_0.getImage(),bombe));
@@ -199,8 +207,7 @@ public final class GameEngine {
     private void update(long now) {
         player.update(now);
 
-        if (player.getLives() != 0) {
-        } else {
+        if (player.getLives() == 0) {
             gameLoop.stop();
             showMessage("Perdu!", Color.RED);
         }

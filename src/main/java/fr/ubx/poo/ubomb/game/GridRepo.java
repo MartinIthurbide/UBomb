@@ -1,5 +1,6 @@
 package fr.ubx.poo.ubomb.game;
 
+import fr.ubx.poo.ubomb.go.character.Monster;
 import fr.ubx.poo.ubomb.go.decor.*;
 import fr.ubx.poo.ubomb.go.decor.bonus.*;
 
@@ -30,8 +31,6 @@ public abstract class GridRepo {
                 return new Key(pos);
             case Heart:
                 return new Heart(pos);
-            case Monster:
-                return new DecorMonster(pos);
             case BombNumberInc:
                 return new BombNumberInc(pos);
             case BombNumberDec:
@@ -49,6 +48,8 @@ public abstract class GridRepo {
             case DoorPrevOpened:
             case DoorNextOpened:
                 return new Door(pos,Door.OPENED);
+            case Monster:
+                game.addMonster(new Monster(game,pos,1));
 
             default:
                 return null;

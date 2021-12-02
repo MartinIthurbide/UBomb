@@ -6,12 +6,14 @@ package fr.ubx.poo.ubomb.game;
 
 
 import fr.ubx.poo.ubomb.go.GameObject;
+import fr.ubx.poo.ubomb.go.character.Monster;
 import fr.ubx.poo.ubomb.go.character.Player;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
@@ -28,6 +30,7 @@ public class Game {
     public final long monsterInvisibilityTime;
     private final Grid grid;
     private final Player player;
+    private final ArrayList<Monster> monsters = new ArrayList<>();
 
     public int nbKeys = 0;
     public int playerHearts;
@@ -61,7 +64,6 @@ public class Game {
                 throw new RuntimeException("Invalid configuration format");
             Position playerPosition = new Position(Integer.parseInt(tokens[0]), Integer.parseInt(tokens[1]));
             player = new Player(this, playerPosition, playerLives);
-
         }
             catch (IOException ex) {
             System.err.println("Error loading configuration");
@@ -78,11 +80,24 @@ public class Game {
         List<GameObject> gos = new LinkedList<>();
         if (getPlayer().getPosition().equals(position))
             gos.add(player);
+        for (Monster m : getMonsters()) {
+            if(m.getPosition().equals(position)) {
+                gos.add(m);
+            }
+        }
         return gos;
     }
 
     public Player getPlayer() {
         return this.player;
+    }
+
+    public ArrayList<Monster> getMonsters() {
+        return monsters;
+    }
+
+    public void addMonster(Monster m) {
+        monsters.add(m);
     }
 
     public boolean inside(Position position) {
