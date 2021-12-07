@@ -36,14 +36,16 @@ public class Bomb extends GameObject{
 
     public void update() {
         cptBomb--;
-        System.out.println("cpt bombe : "+cptBomb+"\n");
         if (cptBomb <= 0) {
             setModified(true);
-            reinitCpt(CONST);
+            reinitCpt(CONST); // delai entre chaque changement d'etat
             etatBomb--;
+            System.out.println("etat bombe : "+etatBomb+"\n");
 
-            if(exploded) {
+            if(isExploded() == true) {
                 //todo
+                // faire exploser la bombe en appelant le sprite
+                boom();
             }
         }
 
@@ -51,8 +53,7 @@ public class Bomb extends GameObject{
     }
 
     private void boom() {
-        remove();
-        explode();
+        System.out.println("Je suis là !!\n");
     }
 
     public int getRange() {
@@ -61,6 +62,10 @@ public class Bomb extends GameObject{
 
     public int getEtatBomb() {
         return etatBomb;
+    }
+
+    public boolean isExploded(){
+        return exploded;
     }
 
     @Override

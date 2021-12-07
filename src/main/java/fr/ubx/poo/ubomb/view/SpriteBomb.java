@@ -19,10 +19,14 @@ public class SpriteBomb extends Sprite{
     public void updateImage() {
         Bomb b = (Bomb) getGameObject();
         Image image = getImage(b.getEtatBomb());
+        System.out.println("etat bombeSprite : "+b.getEtatBomb()+"\n");
         setImage(image);
 
     }
     public Image getImage(int state) {
-        return ImageResource.getBomb(state);
+        if (state == 0)
+            return ImageResource.getExplosion();
+        else
+            return ImageResource.getBomb(state);
     }
 }
