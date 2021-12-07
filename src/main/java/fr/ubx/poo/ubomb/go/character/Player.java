@@ -19,24 +19,12 @@ import fr.ubx.poo.ubomb.go.decor.Door;
 import fr.ubx.poo.ubomb.go.decor.bonus.*;
 
 
-public class Player extends GameObject implements Movable {
+public class Player extends Character {
 
-    private Direction direction;
     private boolean moveRequested = false;
-    private int lives;
 
     public Player(Game game, Position position, int lives) {
-        super(game, position);
-        this.direction = Direction.DOWN;
-        this.lives = lives;
-    }
-
-    public int getLives() {
-        return lives;
-    }
-
-    public Direction getDirection() {
-        return direction;
+        super(game, position,lives);
     }
 
     public void getBackBomb() {
@@ -44,8 +32,8 @@ public class Player extends GameObject implements Movable {
     }
 
     public void requestMove(Direction direction) {
-        if (direction != this.direction) {
-            this.direction = direction;
+        if (direction != getDirection()) {
+            setDirection(direction);
             setModified(true);
         }
         moveRequested = true;
@@ -74,8 +62,8 @@ public class Player extends GameObject implements Movable {
 
     public void update(long now) {
         if (moveRequested) {
-            if (canMove(direction)) {
-                doMove(direction);
+            if (canMove(getDirection())) {
+                doMove(getDirection());
             }
         }
         moveRequested = false;

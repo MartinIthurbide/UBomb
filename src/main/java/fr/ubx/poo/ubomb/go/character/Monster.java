@@ -6,18 +6,13 @@ import fr.ubx.poo.ubomb.game.Position;
 import fr.ubx.poo.ubomb.go.GameObject;
 import fr.ubx.poo.ubomb.go.Movable;
 
-public class Monster extends GameObject implements Movable {
-
-    private Direction direction;
-    private int lives;
+public class Monster extends Character {
 
     private int velCpt = game.monsterVelocity;
 
 
     public Monster(Game game, Position position, int lives) {
-        super(game, position);
-        this.direction = Direction.DOWN;
-        this.lives = lives;
+        super(game, position,lives);
     }
 
     void reinitCpt(int addValue) {
@@ -29,9 +24,9 @@ public class Monster extends GameObject implements Movable {
         velCpt--;
         if(velCpt == 0) {
             reinitCpt(5);
-            direction = Direction.random();
-            if (canMove(direction)) {
-                doMove(direction);
+            setDirection(Direction.random());
+            if (canMove(getDirection())) {
+                doMove(getDirection());
             }
         }
     }
@@ -59,13 +54,4 @@ public class Monster extends GameObject implements Movable {
         }
     }
 
-
-    // Getters
-    public Direction getDirection() {
-        return direction;
-    }
-
-    public int getLives() {
-        return lives;
-    }
 }
