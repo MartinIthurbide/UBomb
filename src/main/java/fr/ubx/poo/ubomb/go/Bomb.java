@@ -4,11 +4,13 @@ import fr.ubx.poo.ubomb.game.Direction;
 import fr.ubx.poo.ubomb.game.Game;
 import fr.ubx.poo.ubomb.game.Position;
 import fr.ubx.poo.ubomb.go.character.Player;
+import fr.ubx.poo.ubomb.go.decor.Explosion;
 import fr.ubx.poo.ubomb.go.decor.Stone;
 import fr.ubx.poo.ubomb.go.decor.Tree;
 import fr.ubx.poo.ubomb.go.decor.bonus.Bonus;
 import fr.ubx.poo.ubomb.view.SpriteBomb;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 public class Bomb extends GameObject{
@@ -49,7 +51,7 @@ public class Bomb extends GameObject{
             if(isExploded() == true) {
                 //todo
                 // faire passer l'explosion en tant que décor pour l'explosion
-                explode();
+                //explosion();
             }
         }
 
@@ -73,23 +75,23 @@ public class Bomb extends GameObject{
         super.remove();
     }
 
-    @Override
-    public void explode() {
+    public Explosion[] explosion() {
         System.out.println("Explosion\n");
+        int cpt = 0;
         exploded = true;
         //todo
         Position posBomb = getPosition(); // definition de la position suivante de la bombe
         Direction[] direction = Direction.values();
+
+        Explosion[] explosions = new Explosion[direction.length];
         // todo : gérer les cas pour la range
         for( int i = 0; i < direction.length ; i++){
             Position nextPos =  direction[i].nextPosition(posBomb);
             if ( game.getGrid().get(nextPos) == null || (game.getGrid().get(nextPos) instanceof Bonus)){ // Door et Box pas prise en compte
-                //todo
-                // exploser jusqu'à la rang
-
+                cpt++;
+                explosions[cpt] = new Explosion(nextPos);
             }
-
        }
-
+        return explosions;
     }
 }

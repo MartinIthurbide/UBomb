@@ -6,6 +6,7 @@ package fr.ubx.poo.ubomb.engine;
 
 import fr.ubx.poo.ubomb.game.Direction;
 import fr.ubx.poo.ubomb.game.Game;
+import fr.ubx.poo.ubomb.game.Position;
 import fr.ubx.poo.ubomb.go.Bomb;
 import fr.ubx.poo.ubomb.go.GameObject;
 import fr.ubx.poo.ubomb.go.character.Monster;
@@ -13,6 +14,7 @@ import fr.ubx.poo.ubomb.go.character.Player;
 import fr.ubx.poo.ubomb.go.decor.Box;
 import fr.ubx.poo.ubomb.go.decor.Decor;
 import fr.ubx.poo.ubomb.go.decor.Door;
+import fr.ubx.poo.ubomb.go.decor.Explosion;
 import fr.ubx.poo.ubomb.go.decor.bonus.Bonus;
 import fr.ubx.poo.ubomb.view.*;
 import javafx.animation.AnimationTimer;
@@ -124,8 +126,12 @@ public final class GameEngine {
             b.update();
             //changeImageBomb(b);
             if(b.getEtatBomb() == 0) {
-                b.explode();
+                Explosion[] placeExplosion = b.explosion();
                 b.remove();
+                for (Explosion e: placeExplosion
+                     ) {
+                    sprites.add(new SpriteFactory(layer,EXPLOSION.getImage(),e));
+                }
                 // passser l'etat de l'explosion à true
             }
         }

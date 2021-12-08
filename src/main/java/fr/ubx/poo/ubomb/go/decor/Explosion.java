@@ -15,7 +15,6 @@ public class Explosion extends Decor{
     }
 
     @Override
-
     public boolean isWalkable(Player player) {
         return true;
     }
