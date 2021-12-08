@@ -87,9 +87,5 @@ public enum ImageResource {
         return valueOf("BOMB_"+i).image;
     }
 
-    public static Image getExplosion(){
-        return valueOf("EXPLOSION").image;
-    }
-
 
 }

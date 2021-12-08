@@ -44,14 +44,12 @@ public final class SpriteFactory extends Sprite {
             return new Sprite(layer, PRINCESS.getImage(), gameObject);
         if (gameObject instanceof Bomb)
             return new Sprite(layer, BOMB_0.getImage(),gameObject);
-        /*if (gameObject instanceof DoorOpen)
-            return new Sprite(layer, DOOR_OPENED.getImage(),gameObject);
-        if (gameObject instanceof DoorClose)
-            return new Sprite(layer, DOOR_CLOSED.getImage(),gameObject);*/
         if (gameObject instanceof Door) {
             System.out.println("DISPLAYING CLOSED DOOR");
             return new Sprite(layer, DOOR_CLOSED.getImage(),gameObject);
         }
+        if (gameObject instanceof Explosion)
+            return new SpriteFactory(layer, EXPLOSION.getImage(), gameObject);
 
         throw new RuntimeException("Unsupported sprite for decor " + gameObject);
     }

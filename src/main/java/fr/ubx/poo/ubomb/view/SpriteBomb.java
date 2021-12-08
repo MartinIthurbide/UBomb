@@ -24,9 +24,6 @@ public class SpriteBomb extends Sprite{
 
     }
     public Image getImage(int state) {
-        if (state == 0)
-            return ImageResource.getExplosion();
-        else
-            return ImageResource.getBomb(state);
+        return ImageResource.getBomb(state);
     }
 }
