@@ -41,17 +41,18 @@ public class Bomb extends GameObject{
     }
 
     public void update() {
-        cptBomb--;
-        if (cptBomb <= 0) {
-            setModified(true);
-            reinitCpt(CONST); // delai entre chaque changement d'etat
-            etatBomb--;
-            System.out.println("etat bombe : "+etatBomb+"\n");
+        if(isExploded() != true) {
+            cptBomb--;
+            if (cptBomb <= 0) {
+                setModified(true);
+                reinitCpt(CONST); // delai entre chaque changement d'etat
+                etatBomb--;
+                System.out.println("etat bombe : "+etatBomb+"\n");
 
-            if(isExploded() == true) {
-                //todo
-                // faire passer l'explosion en tant que décor pour l'explosion
-                //explosion();
+                    //todo
+                    // faire passer l'explosion en tant que décor pour l'explosion
+                    // arreter le programme
+                    //explosion();
             }
         }
 
@@ -83,13 +84,16 @@ public class Bomb extends GameObject{
         Position posBomb = getPosition(); // definition de la position suivante de la bombe
         Direction[] direction = Direction.values();
 
-        Explosion[] explosions = new Explosion[direction.length];
+        Explosion[] explosions = new Explosion[direction.length+1];
         // todo : gérer les cas pour la range
         for( int i = 0; i < direction.length ; i++){
             Position nextPos =  direction[i].nextPosition(posBomb);
-            if ( game.getGrid().get(nextPos) == null || (game.getGrid().get(nextPos) instanceof Bonus)){ // Door et Box pas prise en compte
-                cpt++;
-                explosions[cpt] = new Explosion(nextPos);
+            if(game.inside(nextPos)){
+                if (game.getGrid().get(nextPos) == null || (game.getGrid().get(nextPos) instanceof Bonus)){ // Door et Box pas prise en compte
+                    System.out.println("Boom à : " + nextPos +"\n");
+                    cpt++;
+                    explosions[cpt] = new Explosion(nextPos);
+                }
             }
        }
         return explosions;

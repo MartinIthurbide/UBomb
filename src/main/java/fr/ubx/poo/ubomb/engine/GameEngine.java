@@ -125,14 +125,10 @@ public final class GameEngine {
         for(Bomb b: bombs){
             b.update();
             //changeImageBomb(b);
-            if(b.getEtatBomb() == 0) {
+            if(b.getEtatBomb() == 0 && b.isExploded() != true) {
                 Explosion[] placeExplosion = b.explosion();
                 b.remove();
-                for (Explosion e: placeExplosion
-                     ) {
-                    sprites.add(new SpriteFactory(layer,EXPLOSION.getImage(),e));
-                }
-                // passser l'etat de l'explosion à true
+                sprites.add(new SpriteFactory(layer,EXPLOSION.getImage(),placeExplosion[0]));
             }
         }
     }
@@ -234,6 +230,7 @@ public final class GameEngine {
     public void cleanupSprites() {
         sprites.forEach(sprite -> {
             if (sprite.getGameObject().isDeleted()) {
+                System.out.println(sprite.getPosition()+"\n");
                 game.getGrid().remove(sprite.getPosition());
                 cleanUpSprites.add(sprite);
             }
