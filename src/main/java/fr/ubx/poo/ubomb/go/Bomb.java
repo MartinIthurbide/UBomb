@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class Bomb extends GameObject{
 
     private final int CONST = 50;
-    private final int CONSTEXP = 20;
+    private final int CONSTEXP = 30;
     private int range;
     private int cptBomb;
     private int cptExplode;
@@ -25,6 +25,7 @@ public class Bomb extends GameObject{
         cptBomb = CONST;
         cptExplode = CONSTEXP;
         exploded = false;
+        range = game.bombRange;
     }
 
     public Bomb(Position position) {
@@ -48,11 +49,6 @@ public class Bomb extends GameObject{
                 reinitCpt(CONST); // delai entre chaque changement d'etat
                 etatBomb--;
                 System.out.println("etat bombe : "+etatBomb+"\n");
-
-                    //todo
-                    // faire passer l'explosion en tant que décor pour l'explosion
-                    // arreter le programme
-                    //explosion();
             }
         }
 
@@ -87,22 +83,28 @@ public class Bomb extends GameObject{
     public ArrayList<Explosion> explosion() {
         System.out.println("Explosion\n");
         exploded = true;
-        //todo
+        int range = getRange();
         Position posBomb = getPosition(); // definition de la position suivante de la bombe
         Direction[] direction = Direction.values();
 
         ArrayList<Explosion> explosions = new ArrayList<Explosion>();
-        // todo : gérer les cas pour la range
+
         explosions.add(new Explosion(getPosition()));
-        for( int i = 0; i < direction.length ; i++){
-            Position nextPos =  direction[i].nextPosition(posBomb);
-            GameObject nextObj = game.getGrid().get(nextPos);
-            if(game.inside(nextPos)){
-                if (nextObj == null || nextObj instanceof Bonus || nextObj instanceof Box){ // Door et Box pas prise en compte
-                    if (nextObj != null)
-                        game.getGrid().get(nextPos).remove();
-                    System.out.println("Boom à : " + nextPos +"\n");
-                    explosions.add(new Explosion(nextPos));
+        for( int i = 0; i < direction.length; i++){
+            Position nextPos =  posBomb;
+
+
+            for (int r = 1; r <= range; r++){
+                nextPos = direction[i].nextPosition(nextPos);
+                GameObject nextObj = game.getGrid().get(nextPos);
+
+                if(game.inside(nextPos)){
+                    if (nextObj == null || nextObj instanceof Bonus || nextObj instanceof Box){ // Door et Box pas prise en compte
+                        if (nextObj != null)
+                            game.getGrid().get(nextPos).remove();
+                        System.out.println("Boom à : " + nextPos +"\n");
+                        explosions.add(new Explosion(nextPos));
+                    }
                 }
             }
        }
