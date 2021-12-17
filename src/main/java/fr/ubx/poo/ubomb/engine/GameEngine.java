@@ -42,12 +42,14 @@ public final class GameEngine {
     private final Player player;
     private final List<Sprite> sprites = new LinkedList<>();
     private final ArrayList<Bomb> bombs = new ArrayList<>();
+    ArrayList<Explosion> placeExplosion = new ArrayList<>();
     private final Set<Sprite> cleanUpSprites = new HashSet<>();
     private final Stage stage;
     private StatusBar statusBar;
     private Pane layer;
     private Input input;
     private boolean bombInput = false;
+    private int cptExplode = 200;
 
 
     public GameEngine(final String windowTitle, Game game, final Stage stage) {
@@ -122,14 +124,17 @@ public final class GameEngine {
     }
 
     private void checkExplosions() {
-        for(Bomb b: bombs){
+        for (Bomb b : bombs) {
             b.update();
-            //changeImageBomb(b);
-            if(b.getEtatBomb() == 0 && b.isExploded() != true) {
-                Explosion[] placeExplosion = b.explosion();
+            if (b.getEtatBomb() == 0 && b.isExploded() != true) {
                 b.remove();
-                sprites.add(new SpriteFactory(layer,EXPLOSION.getImage(),placeExplosion[0]));
+                placeExplosion = b.explosion();
+                for (int i = 0; i < placeExplosion.size(); i++) {
+                    sprites.add(new SpriteFactory(layer, EXPLOSION.getImage(), placeExplosion.get(i)));
+                }
             }
+            else if(b.isExploded() == true)
+                b.clearExplosions(placeExplosion);
         }
     }
 
