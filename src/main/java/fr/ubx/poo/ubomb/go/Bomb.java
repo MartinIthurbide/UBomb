@@ -4,6 +4,7 @@ import fr.ubx.poo.ubomb.game.Direction;
 import fr.ubx.poo.ubomb.game.Game;
 import fr.ubx.poo.ubomb.game.Position;
 import fr.ubx.poo.ubomb.go.character.Player;
+import fr.ubx.poo.ubomb.go.decor.Box;
 import fr.ubx.poo.ubomb.go.decor.Explosion;
 import fr.ubx.poo.ubomb.go.decor.bonus.Bonus;
 
@@ -95,8 +96,11 @@ public class Bomb extends GameObject{
         explosions.add(new Explosion(getPosition()));
         for( int i = 0; i < direction.length ; i++){
             Position nextPos =  direction[i].nextPosition(posBomb);
+            GameObject nextObj = game.getGrid().get(nextPos);
             if(game.inside(nextPos)){
-                if (game.getGrid().get(nextPos) == null || (game.getGrid().get(nextPos) instanceof Bonus)){ // Door et Box pas prise en compte
+                if (nextObj == null || nextObj instanceof Bonus || nextObj instanceof Box){ // Door et Box pas prise en compte
+                    if (nextObj != null)
+                        game.getGrid().get(nextPos).remove();
                     System.out.println("Boom à : " + nextPos +"\n");
                     explosions.add(new Explosion(nextPos));
                 }
