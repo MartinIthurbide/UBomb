@@ -22,10 +22,10 @@ public class Game {
 
     public final int bombBagCapacity;
     public final int monsterVelocity;
-    public final int playerLives;
-    public final int levels;
+    public int playerLives;
+    public int levels;
     
-    public final int monsterLives;
+    public int monsterLives;
     public final long playerInvisibilityTime;
     public final long monsterInvisibilityTime;
     private final Grid grid;

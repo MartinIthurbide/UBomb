@@ -19,6 +19,7 @@ import fr.ubx.poo.ubomb.go.decor.bonus.Bonus;
 import fr.ubx.poo.ubomb.view.*;
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
@@ -29,6 +30,7 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
+import javax.management.monitor.MonitorSettingException;
 import java.util.*;
 
 import static fr.ubx.poo.ubomb.view.ImageResource.*;
@@ -40,6 +42,7 @@ public final class GameEngine {
     private final String windowTitle;
     private final Game game;
     private final Player player;
+    //private final ArrayList<Monster> monsters = new ArrayList<>();
     private final List<Sprite> sprites = new LinkedList<>();
     private final ArrayList<Bomb> bombs = new ArrayList<>();
     ArrayList<Explosion> placeExplosion = new ArrayList<>();
@@ -172,6 +175,21 @@ public final class GameEngine {
                 }
 
             }
+        }
+        for (Monster m: game.getMonsters()) {
+            isCollised(m);
+        }
+
+        // todo: probleme explosion ne disparait pas donc degat en continue sur la case
+        for (Explosion e: placeExplosion){
+            isCollised(e);
+        }
+    }
+
+    private void isCollised(GameObject g){
+        if (player.getPosition().equals(g.getPosition())) {
+            player.playerCollision();
+            player.updateInvincibility();
         }
     }
 

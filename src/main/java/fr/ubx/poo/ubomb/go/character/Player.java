@@ -21,14 +21,25 @@ import fr.ubx.poo.ubomb.go.decor.bonus.*;
 
 public class Player extends Character {
 
+    private final int CONSTINV = 40;
+    private int cptInvincibility;
     private boolean moveRequested = false;
 
+    private boolean invincibility;
+
     public Player(Game game, Position position, int lives) {
+
         super(game, position,lives);
+        this.invincibility = false;
+        cptInvincibility = CONSTINV;
     }
 
-    public void getBackBomb() {
+    public boolean isInvincible() {
+        return invincibility;
+    }
 
+    public void setInvincibility(boolean invincibility) {
+        this.invincibility = invincibility;
     }
 
     public void requestMove(Direction direction) {
@@ -102,12 +113,40 @@ public class Player extends Character {
             }
             return false;
     }
+
+    public void playerCollision(){
+        if (!isInvincible()){
+            System.out.println("Damage\n");
+            takeDamage();
+            setInvincibility(true);
+        }
+
+    }
+    private void reinitCpt(int cpt) {
+        cptInvincibility = cpt;
+    }
+
+    public void updateInvincibility() {
+        cptInvincibility --;
+        if (cptInvincibility <= 0){
+            reinitCpt(CONSTINV);
+            setInvincibility(false);
+        }
+    }
+
+
     public void takeKey() {
         game.nbKeys++;
     }
     public void takeHeart() {
         game.playerHearts++;
     }
+
+    public void takeDamage() {
+        setLives(game.playerLives--);
+        game.playerHearts --;
+    }
+
     public void takeBombNumberInc() {
         if(game.bombCapacity < game.bombBagCapacity)
             game.bombCapacity++;

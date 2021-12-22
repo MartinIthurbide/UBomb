@@ -3,9 +3,10 @@ package fr.ubx.poo.ubomb.go;
 import fr.ubx.poo.ubomb.game.Direction;
 import fr.ubx.poo.ubomb.game.Game;
 import fr.ubx.poo.ubomb.game.Position;
+import fr.ubx.poo.ubomb.go.character.Character;
+import fr.ubx.poo.ubomb.go.character.Monster;
 import fr.ubx.poo.ubomb.go.character.Player;
-import fr.ubx.poo.ubomb.go.decor.Box;
-import fr.ubx.poo.ubomb.go.decor.Explosion;
+import fr.ubx.poo.ubomb.go.decor.*;
 import fr.ubx.poo.ubomb.go.decor.bonus.Bonus;
 
 import java.util.ArrayList;
@@ -99,15 +100,31 @@ public class Bomb extends GameObject{
                 GameObject nextObj = game.getGrid().get(nextPos);
 
                 if(game.inside(nextPos)){
-                    if (nextObj == null || nextObj instanceof Bonus || nextObj instanceof Box){ // Door et Box pas prise en compte
-                        if (nextObj != null)
+                    if (!(nextObj instanceof Stone) && !(nextObj instanceof Tree) && !(nextObj instanceof Door)){ // Door et Box pas prise en compte
+                        if (nextObj != null) {
+                            if (nextPos == game.getPlayer().getPosition()) {
+                                damagePlayer();
+                                System.out.println("PlayerHeart : " + game.playerHearts + "\n");
+                                // todo : probleme damage player et monster
+                            }
                             game.getGrid().get(nextPos).remove();
-                        System.out.println("Boom à : " + nextPos +"\n");
-                        explosions.add(new Explosion(nextPos));
+                        }
+                            System.out.println("Boom à : " + nextPos +"\n");
+                            explosions.add(new Explosion(nextPos));
+                            explosions.get(i).getPosition();
                     }
                 }
             }
        }
+        game.bombCapacity ++;
         return explosions;
+    }
+
+    public void damagePlayer(){
+        if (game.playerHearts == 0)
+            System.out.println("Joueur mort\n");
+            // todo: game over et on detruit le player ?
+        else
+            game.playerHearts --;
     }
 }

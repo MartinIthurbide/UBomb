@@ -13,9 +13,10 @@ public class Box extends Decor implements Movable {
     public boolean canMove(Direction direction) {
         boolean can = false;
         Position nextPos = direction.nextPosition(getPosition());
-        if (game.inside(nextPos)) {
+        // todo : gerer la condition if en dessous
+        /*if (game.inside(nextPos)) {
             can = game.getGrid().get(nextPos) != null;
-        }
+        }*/
         return can;
     }
 
