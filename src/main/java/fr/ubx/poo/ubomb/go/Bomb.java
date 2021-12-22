@@ -59,9 +59,11 @@ public class Bomb extends GameObject{
         cptExplode --;
         if (cptExplode <= 0){
             for (int i = 0; i < explosions.size();i++){
-                explosions.get(i).remove();
+                game.removeExplosions(explosions.get(i));
+                //explosions.get(i).remove();
             }
         }
+        reinitCpt(CONSTEXP);
     }
 
     public int getRange() {
@@ -88,9 +90,7 @@ public class Bomb extends GameObject{
         Position posBomb = getPosition(); // definition de la position suivante de la bombe
         Direction[] direction = Direction.values();
 
-        ArrayList<Explosion> explosions = new ArrayList<Explosion>();
-
-        explosions.add(new Explosion(getPosition()));
+        game.addExplosions(new Explosion(getPosition()));
         for( int i = 0; i < direction.length; i++){
             Position nextPos =  posBomb;
 
@@ -110,14 +110,14 @@ public class Bomb extends GameObject{
                             game.getGrid().get(nextPos).remove();
                         }
                             System.out.println("Boom à : " + nextPos +"\n");
-                            explosions.add(new Explosion(nextPos));
-                            explosions.get(i).getPosition();
+                            game.addExplosions(new Explosion(nextPos));
+                            game.getExplosions().get(i).getPosition();
                     }
                 }
             }
        }
         game.bombCapacity ++;
-        return explosions;
+        return game.getExplosions();
     }
 
     public void damagePlayer(){

@@ -21,7 +21,7 @@ import fr.ubx.poo.ubomb.go.decor.bonus.*;
 
 public class Player extends Character {
 
-    private final int CONSTINV = 40;
+    public final int CONSTINV = 40;
     private int cptInvincibility;
     private boolean moveRequested = false;
 
@@ -114,24 +114,27 @@ public class Player extends Character {
             return false;
     }
 
-    public void playerCollision(){
-        if (!isInvincible()){
-            System.out.println("Damage\n");
-            takeDamage();
-            setInvincibility(true);
+    public void playerCollision(GameObject g){
+        if (getPosition().equals(g.getPosition())) {
+            if (!isInvincible()){
+                System.out.println("Damage\n");
+                takeDamage();
+                setInvincibility(true);
+            }
         }
 
     }
-    private void reinitCpt(int cpt) {
+    public void reinitCpt(int cpt) {
         cptInvincibility = cpt;
     }
 
     public void updateInvincibility() {
         cptInvincibility --;
         if (cptInvincibility <= 0){
-            reinitCpt(CONSTINV);
             setInvincibility(false);
+            reinitCpt(CONSTINV);
         }
+        // todo : mettre en place une fonction de timer
     }
 
 

@@ -8,6 +8,7 @@ package fr.ubx.poo.ubomb.game;
 import fr.ubx.poo.ubomb.go.GameObject;
 import fr.ubx.poo.ubomb.go.character.Monster;
 import fr.ubx.poo.ubomb.go.character.Player;
+import fr.ubx.poo.ubomb.go.decor.Explosion;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -31,6 +32,7 @@ public class Game {
     private final Grid grid;
     private final Player player;
     private final ArrayList<Monster> monsters = new ArrayList<>();
+    private final ArrayList<Explosion> explosions = new ArrayList<>();
 
     public int nbKeys = 0;
     public int playerHearts;
@@ -96,9 +98,23 @@ public class Game {
         return monsters;
     }
 
+    public ArrayList<Explosion> getExplosions() {
+        return explosions;
+    }
+
+    public void addExplosions(Explosion e) {
+        explosions.add(e);
+    }
+
+    public void removeExplosions (Explosion e){
+        explosions.remove(e);
+        e.remove();
+    }
+
     public void addMonster(Monster m) {
         monsters.add(m);
     }
+
 
     public boolean inside(Position position) {
         int H = grid.getHeight();

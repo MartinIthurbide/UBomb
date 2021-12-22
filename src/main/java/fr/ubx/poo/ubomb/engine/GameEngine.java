@@ -42,10 +42,8 @@ public final class GameEngine {
     private final String windowTitle;
     private final Game game;
     private final Player player;
-    //private final ArrayList<Monster> monsters = new ArrayList<>();
     private final List<Sprite> sprites = new LinkedList<>();
     private final ArrayList<Bomb> bombs = new ArrayList<>();
-    ArrayList<Explosion> placeExplosion = new ArrayList<>();
     private final Set<Sprite> cleanUpSprites = new HashSet<>();
     private final Stage stage;
     private StatusBar statusBar;
@@ -110,6 +108,7 @@ public final class GameEngine {
                 createNewBombs(now);
                 checkCollision(now);
                 checkExplosions();
+                invincibility(now);
                 player.update(now);
 
                 for (Monster m: game.getMonsters()
@@ -131,13 +130,13 @@ public final class GameEngine {
             b.update();
             if (b.getEtatBomb() == 0 && b.isExploded() != true) {
                 b.remove();
-                placeExplosion = b.explosion();
-                for (int i = 0; i < placeExplosion.size(); i++) {
-                    sprites.add(new SpriteFactory(layer, EXPLOSION.getImage(), placeExplosion.get(i)));
+                b.explosion();
+                for (int i = 0; i < game.getExplosions().size(); i++) {
+                    sprites.add(new SpriteFactory(layer, EXPLOSION.getImage(), game.getExplosions().get(i)));
                 }
             }
             else if(b.isExploded() == true)
-                b.clearExplosions(placeExplosion);
+                b.clearExplosions(game.getExplosions());
         }
     }
 
@@ -176,21 +175,16 @@ public final class GameEngine {
 
             }
         }
-        for (Monster m: game.getMonsters()) {
-            isCollised(m);
-        }
+        for (Monster m: game.getMonsters())
+            player.playerCollision(m);
 
-        // todo: probleme explosion ne disparait pas donc degat en continue sur la case
-        for (Explosion e: placeExplosion){
-            isCollised(e);
-        }
+        for (Explosion e: game.getExplosions())
+            player.playerCollision(e);
     }
 
-    private void isCollised(GameObject g){
-        if (player.getPosition().equals(g.getPosition())) {
-            player.playerCollision();
+    private void invincibility(long now){
+        if (player.isInvincible() == true)
             player.updateInvincibility();
-        }
     }
 
     private void processInput(long now) {
