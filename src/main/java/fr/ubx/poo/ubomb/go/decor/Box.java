@@ -22,7 +22,6 @@ public class Box extends Decor implements Movable {
 
     @Override
     public void doMove(Direction direction) {
-        //if (canMove(nextPos))
         setPosition(direction.nextPosition(getPosition()));
         System.out.println("Position Box : "+getPosition()+"\n");
     }

@@ -59,12 +59,15 @@ public class Player extends Character {
         Position nextPos = direction.nextPosition(getPosition());
         if (game.inside(nextPos)) {
             can = true;
+            if (game.getGrid().get(nextPos) instanceof Box)
+                return true;
             if (game.getGrid().get(nextPos) != null) {
                 can = game.getGrid().get(nextPos).isWalkable(this);
             }
         }
         return can;
     }
+
 
     public void update(long now) {
         if (moveRequested) {

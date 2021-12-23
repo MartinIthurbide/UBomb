@@ -8,7 +8,7 @@ import fr.ubx.poo.ubomb.go.Movable;
 
 public abstract class Character extends GameObject implements Movable {
 
-    private Direction direction;
+    Direction direction;
     private int lives;
 
     public Character(Game game, Position position, int lives) {
