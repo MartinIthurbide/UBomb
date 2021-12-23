@@ -38,16 +38,17 @@ public class Bomb extends GameObject{
         return true;
     }
 
-    private void reinitCpt(int cpt) {
+    private void reinitCptBomb(int cpt) {
         cptBomb = cpt;
     }
+    private void reinitCptExplode (int cpt) {cptExplode = cpt;}
 
     public void update() {
         if(isExploded() != true) {
             cptBomb--;
             if (cptBomb <= 0) {
                 setModified(true);
-                reinitCpt(CONST); // delai entre chaque changement d'etat
+                reinitCptBomb(CONST); // delai entre chaque changement d'etat
                 etatBomb--;
                 System.out.println("etat bombe : "+etatBomb+"\n");
             }
@@ -58,12 +59,12 @@ public class Bomb extends GameObject{
     public void clearExplosions(ArrayList<Explosion> explosions){
         cptExplode --;
         if (cptExplode <= 0){
+            reinitCptExplode(CONSTEXP);
             for (int i = 0; i < explosions.size();i++){
                 game.removeExplosions(explosions.get(i));
                 //explosions.get(i).remove();
             }
         }
-        reinitCpt(CONSTEXP);
     }
 
     public int getRange() {
