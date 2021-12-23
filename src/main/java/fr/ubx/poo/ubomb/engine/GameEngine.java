@@ -51,6 +51,7 @@ public final class GameEngine {
     private Input input;
     private boolean bombInput = false;
     private int cptExplode = 200;
+    private boolean directionInput = false;
 
 
     public GameEngine(final String windowTitle, Game game, final Stage stage) {
@@ -168,9 +169,11 @@ public final class GameEngine {
             Box box = (Box) gameObject;
             if (box.canMove(player.getDirection())){
                 System.out.println("Room for box to move\n");
-                if(input.isMoveLeft()) {
+                // todo : ne rentre pas dans la condition
+                if(directionInput == true) {
                     System.out.println("request : MOVE LEFT\n");
                     player.update(now);
+                    player.doMove(player.getDirection());
                 }
 
             }
@@ -196,6 +199,7 @@ public final class GameEngine {
             player.requestMove(Direction.DOWN);
         } else if (input.isMoveLeft()) {
             player.requestMove(Direction.LEFT);
+            directionInput = true;
         } else if (input.isMoveRight()) {
             player.requestMove(Direction.RIGHT);
         } else if (input.isMoveUp()) {

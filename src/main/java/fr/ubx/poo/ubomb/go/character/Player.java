@@ -4,15 +4,11 @@
 
 package fr.ubx.poo.ubomb.go.character;
 
-import fr.ubx.poo.ubomb.engine.Input;
 import fr.ubx.poo.ubomb.game.Direction;
-import fr.ubx.poo.ubomb.game.EntityCode;
 import fr.ubx.poo.ubomb.game.Game;
 import fr.ubx.poo.ubomb.game.Position;
-import fr.ubx.poo.ubomb.go.Bomb;
 import fr.ubx.poo.ubomb.go.GameObject;
 
-import fr.ubx.poo.ubomb.go.Movable;
 import fr.ubx.poo.ubomb.go.decor.Box;
 import fr.ubx.poo.ubomb.go.decor.Decor;
 import fr.ubx.poo.ubomb.go.decor.Door;
@@ -87,9 +83,15 @@ public class Player extends Character {
            Bonus b = (Bonus) d;
            b.takenBy(this);
         }
+
+        if ((d = game.getGrid().get(nextPos)) instanceof Box){
+            Box b = (Box) d;
+            if (b.canMove(direction))
+                b.doMove(direction);
+            System.out.println("Je bouge une box\n");
+        }
         setPosition(nextPos);
     }
-
 
     @Override
     public boolean isWalkable(Player player) {
