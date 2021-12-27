@@ -59,7 +59,7 @@ public class Bomb extends GameObject{
     public void clearExplosions(ArrayList<Explosion> explosions){
         cptExplode --;
         if (cptExplode <= 0){
-            reinitCptExplode(CONSTEXP);
+            //reinitCptExplode(CONSTEXP);
             for (int i = 0; i < explosions.size();i++){
                 game.removeExplosions(explosions.get(i));
                 //explosions.get(i).remove();
@@ -112,7 +112,6 @@ public class Bomb extends GameObject{
                         }
                             System.out.println("Boom à : " + nextPos +"\n");
                             game.addExplosions(new Explosion(nextPos));
-                            game.getExplosions().get(i).getPosition();
                     }
                 }
             }
