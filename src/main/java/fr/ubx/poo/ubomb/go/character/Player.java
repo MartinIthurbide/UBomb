@@ -29,6 +29,7 @@ public class Player extends Character {
 
         super(game, position,lives);
         cptInvincibility = CONSTINV;
+        lives = game.playerLives;
         currentLevel = 1;
     }
 
@@ -137,7 +138,7 @@ public class Player extends Character {
 
             if (!isInvincible()){
                 System.out.println("Damage\n");
-                takeDamagePlayer();
+                takeDamage();
                 setInvincibility(true);
             }
         }
@@ -162,11 +163,6 @@ public class Player extends Character {
     }
     public void takeHeart() {
         game.playerHearts++;
-    }
-
-    public void takeDamagePlayer() {
-        setLives(game.playerLives--);
-        game.playerHearts --;
     }
 
     public void takeBombNumberInc() {

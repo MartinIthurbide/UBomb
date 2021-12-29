@@ -54,4 +54,8 @@ public abstract class Character extends GameObject implements Movable {
         this.invincibility = invincibility;
     }
 
+    public void takeDamage() {
+        setLives(getLives()-1);
+    }
+
 }

@@ -60,14 +60,9 @@ public class Monster extends Character {
 
             if (!isInvincible()) {
                 System.out.println("Damage\n");
-                takeDamageMonster();
+                takeDamage();
                 setInvincibility(true);
             }
         }
     }
-
-    public void takeDamageMonster() {
-        setLives(getLives()-1);
-    }
-
 }
