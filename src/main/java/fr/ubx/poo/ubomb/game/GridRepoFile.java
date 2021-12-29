@@ -1,12 +1,62 @@
 package fr.ubx.poo.ubomb.game;
+import fr.ubx.poo.ubomb.game.EntityCode;
+
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.Reader;
 
 public class GridRepoFile extends GridRepo{
     GridRepoFile(Game game) {
         super(game);
     }
 
-    @Override
-    public Grid load(int level, String name) {
-        return null;
+    char EOL = '\n';
+
+    public Grid load(int level, String name) throws IOException {
+        FileReader in = new FileReader(name);
+        char buffer[] = new char[4096];
+        StringBuilder s = new StringBuilder();
+        int n;
+        while((n = in.read(buffer)) > 0) {
+            s.append(buffer,0,n);
+        }
+        System.out.println(s);
+        return create(s.toString());
+    }
+
+    public Grid create(String string) {
+        // Init
+        int  width = 0, height = 0;
+
+        // Calcul width
+        while(EOL != string.charAt(width)) {
+            width++;
+        }
+
+        // Calcul height
+        for (int i = 0; i < string.length(); i++) {
+            if (string.charAt(i) == EOL)
+                height++;
+        }
+
+        // Log
+        //System.out.println("Width : " + width + "\nHeight : " + height);
+
+        int cpt = 0;
+
+        // Creating grid
+        Grid g = new Grid(width,height);
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                //int spot = i + j * (width+1);
+                Position position = new Position(i, j);
+                EntityCode e = EntityCode.fromCode(string.charAt(cpt));
+                g.set(position,processEntityCode(e,position));
+                cpt++;
+                //System.out.println("index string : " + spot);
+            }
+            cpt++;
+        }
+        return g;
     }
 }

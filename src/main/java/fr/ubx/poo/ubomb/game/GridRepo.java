@@ -4,6 +4,8 @@ import fr.ubx.poo.ubomb.go.character.Monster;
 import fr.ubx.poo.ubomb.go.decor.*;
 import fr.ubx.poo.ubomb.go.decor.bonus.*;
 
+import java.io.IOException;
+
 
 public abstract class GridRepo {
 
@@ -17,7 +19,7 @@ public abstract class GridRepo {
         return game;
     }
 
-    public abstract Grid load(int level, String name);
+    public abstract Grid load(int level, String name) throws IOException;
 
     Decor processEntityCode(EntityCode entityCode, Position pos) {
         switch (entityCode) {
