@@ -9,28 +9,44 @@ public class Door  extends Decor {
     public static final int CLOSED = 0;
     public static final int OPENED = 1;
 
+    public static final int BACK = 0;
+    public static final int NEXT = 1;
+
+
     private int state;
+    private int sens;
 
     public Door(Game game, Position position) {
         super(game, position);
     }
 
-    public Door(Position position, int etat) {
-        super(position);
-        state = etat;
+    public Door(Game game, Position position, int etat, int sens) {
+        super(game, position);
+        this.state = etat;
+        this.sens = sens;
     }
 
     public int getState() {
         return state;
     }
 
-    public void takenBy(Player player, int level) {
+    public void open() {
         if(getState() == CLOSED) {
             state = OPENED;
-            boolean b = isModified();
-            b = true;
-            explode();
+            //explode();
         }
+    }
+
+    public void takenBy(Player player) {
+
+            if (sens == BACK) { // BACK LEVEL
+                game.currentLevel--;
+                }
+            else { // NEXT LEVEL
+                game.currentLevel++;
+            }
+            // todo : load map suivante
+        System.out.println(game.currentLevel);
     }
 
     public boolean isWalkable(Player player) {

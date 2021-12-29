@@ -34,6 +34,7 @@ public class Game {
     private final ArrayList<Monster> monsters = new ArrayList<>();
     private final ArrayList<Explosion> explosions = new ArrayList<>();
 
+    public int currentLevel = 1;
     public int nbKeys = 0;
     public int playerHearts;
     public int bombRange = 1;
@@ -54,6 +55,7 @@ public class Game {
             playerInvisibilityTime = Long.parseLong(prop.getProperty("playerInvisibilityTime", "4000"));
             monsterInvisibilityTime = Long.parseLong(prop.getProperty("monsterInvisibilityTime", "1000"));
             monsterLives = Integer.parseInt(prop.getProperty("monsterLives", "1"));
+
 
             // Load the world
             String prefix = prop.getProperty("prefix");

@@ -116,7 +116,7 @@ public class Player extends Character {
             if((game.getGrid().get(nextPos)) instanceof Door) {
                 Door d = (Door) game.getGrid().get(nextPos);
                 System.out.println(d.getState());
-                d.takenBy(this,1);
+                d.open();
                 System.out.println(d.getState());
                 // peut etre le goToNextLevel ici
                 return true;

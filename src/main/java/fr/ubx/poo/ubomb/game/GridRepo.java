@@ -44,10 +44,11 @@ public abstract class GridRepo {
             case Princess:
                 return new Princess(pos);
             case DoorNextClosed:
-                return new Door(pos,Door.CLOSED);
+                return new Door(game,pos,Door.CLOSED,Door.NEXT);
             case DoorPrevOpened:
+                return new Door(game, pos,Door.OPENED,Door.BACK);
             case DoorNextOpened:
-                return new Door(pos,Door.OPENED);
+                return new Door(game, pos,Door.OPENED,Door.NEXT);
             case Monster:
                 game.addMonster(new Monster(game,pos,1));
 

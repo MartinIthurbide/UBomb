@@ -185,6 +185,11 @@ public final class GameEngine {
 
             //player.playerCollision(d);
 
+        if (game.getGrid().get(player.getPosition()) instanceof Door) {
+            Door d = (Door) game.getGrid().get(player.getPosition());
+            d.takenBy(player);
+        }
+
         for (Monster m: game.getMonsters())
             player.playerCollision(m);
 
