@@ -153,13 +153,18 @@ public final class GameEngine {
 
     private void openDoor (){
         if(game.nbKeys > 0){
-            if (player.takeDoor(1)){
+            if (player.takeDoor(1)){ // todo: Gerer les portes arrières
                 Door door = new Door(game, player.getDirection().nextPosition(player.getPosition()));
                 sprites.add(new SpriteFactory(layer,DOOR_OPENED.getImage(),door));
                 door.isWalkable(player);
                 game.nbKeys --;
+
             }
         }
+    }
+
+    private void goToNextLevel (Door door){
+        System.out.println("Je vais au niveau "+ player.getCurrentLevel()+1+ "\n");
     }
 
     private void checkCollision(long now) {
@@ -177,11 +182,19 @@ public final class GameEngine {
 
             }
         }
+
+            //player.playerCollision(d);
+
         for (Monster m: game.getMonsters())
             player.playerCollision(m);
 
-        for (Explosion e: game.getExplosions())
+        for (Explosion e: game.getExplosions()){
+            for (Monster m: game.getMonsters())
+                m.monsterCollision(e);
+
             player.playerCollision(e);
+        }
+
     }
 
     private void invincibility(long now){
@@ -238,6 +251,11 @@ public final class GameEngine {
         if (player.getLives() == 0) {
             gameLoop.stop();
             showMessage("Perdu!", Color.RED);
+        }
+
+        for (Monster m: game.getMonsters()) {
+            if (m.getLives() == 0)
+                m.remove();
         }
 
         if (player.isWinner()) {

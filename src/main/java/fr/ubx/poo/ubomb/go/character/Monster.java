@@ -5,6 +5,7 @@ import fr.ubx.poo.ubomb.game.Game;
 import fr.ubx.poo.ubomb.game.Position;
 import fr.ubx.poo.ubomb.go.GameObject;
 import fr.ubx.poo.ubomb.go.Movable;
+import fr.ubx.poo.ubomb.go.decor.Door;
 
 public class Monster extends Character {
 
@@ -23,7 +24,7 @@ public class Monster extends Character {
     public void update(long now) {
         velCpt--;
         if(velCpt == 0) {
-            reinitCpt(5);
+            reinitCpt(100);
             setDirection(Direction.random());
             if (canMove(getDirection())) {
                 doMove(getDirection());
@@ -52,6 +53,21 @@ public class Monster extends Character {
         if (canMove(direction)) {
             setPosition(nextPos);
         }
+    }
+
+    public void monsterCollision(GameObject g) {
+        if (getPosition().equals(g.getPosition())) {
+
+            if (!isInvincible()) {
+                System.out.println("Damage\n");
+                takeDamageMonster();
+                setInvincibility(true);
+            }
+        }
+    }
+
+    public void takeDamageMonster() {
+        setLives(game.monsterLives--);
     }
 
 }

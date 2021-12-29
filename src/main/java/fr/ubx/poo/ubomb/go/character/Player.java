@@ -20,23 +20,26 @@ public class Player extends Character {
     public final int CONSTINV = 40;
     private int cptInvincibility;
     private boolean moveRequested = false;
+    // todo : definir currentLevel ici
+    private int currentLevel;
 
-    private boolean invincibility;
+
 
     public Player(Game game, Position position, int lives) {
 
         super(game, position,lives);
-        this.invincibility = false;
         cptInvincibility = CONSTINV;
+        currentLevel = 1;
     }
 
-    public boolean isInvincible() {
-        return invincibility;
+    public int getCurrentLevel() {
+        return currentLevel;
     }
 
-    public void setInvincibility(boolean invincibility) {
-        this.invincibility = invincibility;
+    public void setCurrentLevel(int currentLevel) {
+        this.currentLevel = currentLevel;
     }
+
 
     public void requestMove(Direction direction) {
         if (direction != getDirection()) {
@@ -114,16 +117,27 @@ public class Player extends Character {
                 System.out.println(d.getState());
                 d.takenBy(this,1);
                 System.out.println(d.getState());
+                // peut etre le goToNextLevel ici
                 return true;
             }
             return false;
     }
 
+    public void goToNextLevel (GameObject door){
+        //change le monde
+        System.out.println("Je change de monde\n");
+    }
+
     public void playerCollision(GameObject g){
         if (getPosition().equals(g.getPosition())) {
+
+            if (g instanceof Door){
+                goToNextLevel(g);
+            }
+
             if (!isInvincible()){
                 System.out.println("Damage\n");
-                takeDamage();
+                takeDamagePlayer();
                 setInvincibility(true);
             }
         }
@@ -150,7 +164,7 @@ public class Player extends Character {
         game.playerHearts++;
     }
 
-    public void takeDamage() {
+    public void takeDamagePlayer() {
         setLives(game.playerLives--);
         game.playerHearts --;
     }
