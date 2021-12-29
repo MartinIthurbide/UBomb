@@ -67,7 +67,7 @@ public class Monster extends Character {
     }
 
     public void takeDamageMonster() {
-        setLives(game.monsterLives--);
+        setLives(getLives()-1);
     }
 
 }

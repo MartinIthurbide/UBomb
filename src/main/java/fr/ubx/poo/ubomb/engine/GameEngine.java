@@ -254,8 +254,9 @@ public final class GameEngine {
         }
 
         for (Monster m: game.getMonsters()) {
-            if (m.getLives() == 0)
+            if (m.getLives() == 0){
                 m.remove();
+            }
         }
 
         if (player.isWinner()) {
