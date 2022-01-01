@@ -4,9 +4,8 @@
 
 package fr.ubx.poo.ubomb.go.character;
 
-import fr.ubx.poo.ubomb.game.Direction;
-import fr.ubx.poo.ubomb.game.Game;
-import fr.ubx.poo.ubomb.game.Position;
+import fr.ubx.poo.ubomb.engine.GameEngine;
+import fr.ubx.poo.ubomb.game.*;
 import fr.ubx.poo.ubomb.go.GameObject;
 
 import fr.ubx.poo.ubomb.go.decor.Box;
@@ -14,13 +13,14 @@ import fr.ubx.poo.ubomb.go.decor.Decor;
 import fr.ubx.poo.ubomb.go.decor.Door;
 import fr.ubx.poo.ubomb.go.decor.bonus.*;
 
+import java.io.IOException;
+
 
 public class Player extends Character {
 
     public final int CONSTINV = 40;
     private int cptInvincibility;
     private boolean moveRequested = false;
-    // todo : definir currentLevel ici
     private int currentLevel;
 
 
@@ -118,23 +118,23 @@ public class Player extends Character {
                 System.out.println(d.getState());
                 d.open();
                 System.out.println(d.getState());
-                // peut etre le goToNextLevel ici
                 return true;
             }
             return false;
     }
 
-    public void goToNextLevel (GameObject door){
+    public void goToNextLevel (int level, Door door) throws IOException {
         //change le monde
-        System.out.println("Je change de monde\n");
+        this.currentLevel = level;
+        System.out.println("Changement de monde");
     }
 
     public void playerCollision(GameObject g){
         if (getPosition().equals(g.getPosition())) {
 
-            if (g instanceof Door){
-                goToNextLevel(g);
-            }
+            /*if (g instanceof Door){
+                goToNextLevel(game.currentLevel);
+            }*/
 
             if (!isInvincible()){
                 System.out.println("Damage\n");
@@ -144,6 +144,25 @@ public class Player extends Character {
         }
 
     }
+
+    public void pushBox(long now){
+        GameObject gameObject = game.getGrid().get(getDirection().nextPosition(getPosition()));
+        if (gameObject instanceof Box) {
+            Box box = (Box) gameObject;
+            if (box.canMove(getDirection())) {
+                System.out.println("Room for box to move\n");
+                if (canMove(getDirection())) {
+                    System.out.println("request : MOVE LEFT\n");
+                    update(now);
+                    doMove(getDirection());
+                    //box.doMove(getDirection());
+                }
+
+            }
+        }
+    }
+
+
     public void reinitCpt(int cpt) {
         cptInvincibility = cpt;
     }
@@ -154,7 +173,6 @@ public class Player extends Character {
             setInvincibility(false);
             reinitCpt(CONSTINV);
         }
-        // todo : mettre en place une fonction de timer
     }
 
 

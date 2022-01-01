@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.io.Reader;
 
 public class GridRepoFile extends GridRepo{
-    GridRepoFile(Game game) {
+    public GridRepoFile(Game game) {
         super(game);
     }
 
