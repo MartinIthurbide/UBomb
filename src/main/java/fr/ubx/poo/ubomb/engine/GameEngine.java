@@ -171,13 +171,13 @@ public final class GameEngine {
 
     private void checkCollision(long now) throws IOException {
         //verifier direction tout autour du player
-        Direction[] direction = Direction.values();
+        /*Direction[] direction = Direction.values();
 
         for (int i = 0; i < direction.length; i++) {
             Position pos = direction[i].nextPosition(player.getPosition());
             if (game.getGrid().get(pos) instanceof Door) {
-                player.pushBox(now);
-            }
+                //player.pushBox(now);
+            }*/
 
             if (game.getGrid().get(player.getPosition()) instanceof Door) {
                 Door d = (Door) game.getGrid().get(player.getPosition());
@@ -195,8 +195,9 @@ public final class GameEngine {
                 player.playerCollision(e);
             }
 
+            update(now);
+
         }
-    }
 
     private void invincibility(long now){
         if (player.isInvincible() == true)

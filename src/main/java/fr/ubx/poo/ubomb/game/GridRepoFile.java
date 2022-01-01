@@ -45,7 +45,7 @@ public class GridRepoFile extends GridRepo{
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
                 //int spot = i + j * (width+1);
-                Position position = new Position(i, j);
+                Position position = new Position(j, i);
                 EntityCode e = EntityCode.fromCode(s.charAt(cpt));
                 g.set(position,processEntityCode(e,position));
                 cpt++;

@@ -3,6 +3,7 @@ package fr.ubx.poo.ubomb.go.decor;
 import fr.ubx.poo.ubomb.game.*;
 import fr.ubx.poo.ubomb.go.Movable;
 import fr.ubx.poo.ubomb.go.character.Player;
+import fr.ubx.poo.ubomb.go.decor.bonus.Bonus;
 
 public class Box extends Decor implements Movable {
     public Box(Position position) {
@@ -11,13 +12,15 @@ public class Box extends Decor implements Movable {
 
     @Override
     public boolean canMove(Direction direction) {
-        boolean can = true;
         Position nextPos = direction.nextPosition(getPosition());
         // todo : condition ne marche pas
-        /*if (game.inside(nextPos)){
-            can = true;
-        }*/
-        return can;
+        if (game.getGrid().get(nextPos) instanceof Bonus){
+            return false;
+        }
+        if (!game.inside(nextPos)){
+            return false;
+        }
+        return true;
     }
 
     @Override

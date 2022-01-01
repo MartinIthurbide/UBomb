@@ -145,6 +145,7 @@ public class Player extends Character {
 
     }
 
+    // todo : inutile pour l'instant
     public void pushBox(long now){
         GameObject gameObject = game.getGrid().get(getDirection().nextPosition(getPosition()));
         if (gameObject instanceof Box) {
@@ -155,7 +156,9 @@ public class Player extends Character {
                     System.out.println("request : MOVE LEFT\n");
                     update(now);
                     doMove(getDirection());
-                    //box.doMove(getDirection());
+                    System.out.println("je suis ici");
+                    box.doMove(getDirection());
+                    System.out.println("Position de la box 2 : "+box.getPosition()+"\n");
                 }
 
             }
