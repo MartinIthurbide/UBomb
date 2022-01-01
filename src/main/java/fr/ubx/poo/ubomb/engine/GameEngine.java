@@ -4,6 +4,7 @@
 
 package fr.ubx.poo.ubomb.engine;
 
+import com.sun.javafx.font.CompositeStrike;
 import fr.ubx.poo.ubomb.game.Direction;
 import fr.ubx.poo.ubomb.game.Game;
 import fr.ubx.poo.ubomb.game.Position;
@@ -31,6 +32,7 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 import javax.management.monitor.MonitorSettingException;
+import java.io.IOException;
 import java.util.*;
 
 import static fr.ubx.poo.ubomb.view.ImageResource.*;
@@ -106,7 +108,11 @@ public final class GameEngine {
                 // Do actions
                 update(now);
                 createNewBombs(now);
-                checkCollision(now);
+                try {
+                    checkCollision(now);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 checkExplosions();
                 invincibility(now);
                 player.update(now);
@@ -153,7 +159,7 @@ public final class GameEngine {
 
     private void openDoor (){
         if(game.nbKeys > 0){
-            if (player.takeDoor(1)){ // todo: Gerer les portes arrières
+            if (player.takeDoor(1)){
                 Door door = new Door(game, player.getDirection().nextPosition(player.getPosition()));
                 sprites.add(new SpriteFactory(layer,DOOR_OPENED.getImage(),door));
                 door.isWalkable(player);
@@ -163,43 +169,33 @@ public final class GameEngine {
         }
     }
 
-    private void goToNextLevel (Door door){
-        System.out.println("Je vais au niveau "+ player.getCurrentLevel()+1+ "\n");
-    }
+    private void checkCollision(long now) throws IOException {
+        //verifier direction tout autour du player
+        Direction[] direction = Direction.values();
 
-    private void checkCollision(long now) {
-        GameObject gameObject =  game.getGrid().get(player.getDirection().nextPosition(player.getPosition()));
-        if (gameObject instanceof Box){
-            Box box = (Box) gameObject;
-            if (box.canMove(player.getDirection())){
-                System.out.println("Room for box to move\n");
-                // todo : ne rentre pas dans la condition
-                if(player.canMove(player.getDirection())) {
-                    System.out.println("request : MOVE LEFT\n");
-                    player.update(now);
-                    player.doMove(player.getDirection());
-                }
-
+        for (int i = 0; i < direction.length; i++) {
+            Position pos = direction[i].nextPosition(player.getPosition());
+            if (game.getGrid().get(pos) instanceof Door) {
+                player.pushBox(now);
             }
+
+            if (game.getGrid().get(player.getPosition()) instanceof Door) {
+                Door d = (Door) game.getGrid().get(player.getPosition());
+                d.takenBy(player);
+                player.goToNextLevel(game.currentLevel, d);
+            }
+
+            for (Monster m : game.getMonsters())
+                player.playerCollision(m);
+
+            for (Explosion e : game.getExplosions()) {
+                for (Monster m : game.getMonsters())
+                    m.monsterCollision(e);
+
+                player.playerCollision(e);
+            }
+
         }
-
-            //player.playerCollision(d);
-
-        if (game.getGrid().get(player.getPosition()) instanceof Door) {
-            Door d = (Door) game.getGrid().get(player.getPosition());
-            d.takenBy(player);
-        }
-
-        for (Monster m: game.getMonsters())
-            player.playerCollision(m);
-
-        for (Explosion e: game.getExplosions()){
-            for (Monster m: game.getMonsters())
-                m.monsterCollision(e);
-
-            player.playerCollision(e);
-        }
-
     }
 
     private void invincibility(long now){
