@@ -4,6 +4,8 @@ import fr.ubx.poo.ubomb.game.Game;
 import fr.ubx.poo.ubomb.game.Position;
 import fr.ubx.poo.ubomb.go.character.Player;
 
+import java.io.IOException;
+
 public class Door  extends Decor {
 
     public static final int CLOSED = 0;

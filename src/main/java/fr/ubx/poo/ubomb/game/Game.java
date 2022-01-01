@@ -59,8 +59,9 @@ public class Game {
 
             // Load the world
             String prefix = prop.getProperty("prefix");
-            GridRepo gridRepo = new GridRepoSample(this);
-            this.grid = gridRepo.load(1, prefix + 1);
+            String suffix = ".txt";
+            GridRepo gridRepo = new GridRepoFile(this);
+            this.grid = gridRepo.load(1, prefix + 1 + suffix);
 
             // Create the player
             String[] tokens = prop.getProperty("player").split("[ :x]+");

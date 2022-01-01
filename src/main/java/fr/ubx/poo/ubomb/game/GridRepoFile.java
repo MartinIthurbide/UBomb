@@ -13,7 +13,7 @@ public class GridRepoFile extends GridRepo{
     char EOL = '\n';
 
     public Grid load(int level, String name) throws IOException {
-        FileReader in = new FileReader(name);
+        FileReader in = new FileReader("src/main/resources/sample/"+name);
         char buffer[] = new char[4096];
         StringBuilder s = new StringBuilder();
         int n;
@@ -21,21 +21,17 @@ public class GridRepoFile extends GridRepo{
             s.append(buffer,0,n);
         }
         System.out.println(s);
-        return create(s.toString());
-    }
 
-    public Grid create(String string) {
-        // Init
         int  width = 0, height = 0;
 
         // Calcul width
-        while(EOL != string.charAt(width)) {
+        while(EOL != s.charAt(width)) {
             width++;
         }
 
         // Calcul height
-        for (int i = 0; i < string.length(); i++) {
-            if (string.charAt(i) == EOL)
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) == EOL)
                 height++;
         }
 
@@ -50,7 +46,7 @@ public class GridRepoFile extends GridRepo{
             for (int j = 0; j < width; j++) {
                 //int spot = i + j * (width+1);
                 Position position = new Position(i, j);
-                EntityCode e = EntityCode.fromCode(string.charAt(cpt));
+                EntityCode e = EntityCode.fromCode(s.charAt(cpt));
                 g.set(position,processEntityCode(e,position));
                 cpt++;
                 //System.out.println("index string : " + spot);
