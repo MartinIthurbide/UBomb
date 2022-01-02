@@ -45,8 +45,11 @@ public final class SpriteFactory extends Sprite {
         if (gameObject instanceof Bomb)
             return new Sprite(layer, BOMB_0.getImage(),gameObject);
         if (gameObject instanceof Door) {
-            System.out.println("DISPLAYING CLOSED DOOR");
-            return new Sprite(layer, DOOR_CLOSED.getImage(),gameObject);
+            Door d = (Door) gameObject;
+            if (d.getState() == Door.OPENED)
+                return new Sprite(layer, DOOR_OPENED.getImage(),gameObject);
+            else
+                return new Sprite(layer, DOOR_CLOSED.getImage(),gameObject);
         }
         if (gameObject instanceof Explosion)
             return new SpriteFactory(layer, EXPLOSION.getImage(), gameObject);

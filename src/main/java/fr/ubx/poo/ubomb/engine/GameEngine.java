@@ -166,7 +166,6 @@ public final class GameEngine {
                 sprites.add(new SpriteFactory(layer,DOOR_OPENED.getImage(),door));
                 door.isWalkable(player);
                 game.nbKeys --;
-
             }
         }
     }
