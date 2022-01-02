@@ -29,10 +29,11 @@ public class Game {
     public int monsterLives;
     public final long playerInvisibilityTime;
     public final long monsterInvisibilityTime;
-    private final Grid grid;
+    private Grid grid;
     private final Player player;
     private final ArrayList<Monster> monsters = new ArrayList<>();
     private final ArrayList<Explosion> explosions = new ArrayList<>();
+    private final ArrayList<GridRepo> tabLevels = new ArrayList<>();
 
     public int currentLevel = 1;
     public int nbKeys = 0;
@@ -56,12 +57,16 @@ public class Game {
             monsterInvisibilityTime = Long.parseLong(prop.getProperty("monsterInvisibilityTime", "1000"));
             monsterLives = Integer.parseInt(prop.getProperty("monsterLives", "1"));
 
-
             // Load the world
             String prefix = prop.getProperty("prefix");
             String suffix = ".txt";
-            GridRepo gridRepo = new GridRepoFile(this);
-            this.grid = gridRepo.load(1, prefix + 1 + suffix);
+
+            for (int i = 0; i < levels; i++){
+                tabLevels.add(new GridRepoFile(this));
+                //tabLevels.get(i).load(i,prefix+i+suffix);
+            }
+
+            this.grid = tabLevels.get(0).load(1, prefix + 1 + suffix);
 
             // Create the player
             String[] tokens = prop.getProperty("player").split("[ :x]+");
@@ -116,6 +121,13 @@ public class Game {
 
     public void addMonster(Monster m) {
         monsters.add(m);
+    }
+
+    public void changeLevel (int currentLevel) throws IOException {
+
+        // todo : faire spawn player sur la door open de l'autre monde
+
+        this.grid = tabLevels.get(currentLevel).load(currentLevel,"level"+currentLevel+".txt");
     }
 
 

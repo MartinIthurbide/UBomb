@@ -127,15 +127,11 @@ public class Player extends Character {
         //change le monde
         this.currentLevel = level;
         System.out.println("Changement de monde");
+        game.changeLevel(currentLevel);
     }
 
     public void playerCollision(GameObject g){
         if (getPosition().equals(g.getPosition())) {
-
-            /*if (g instanceof Door){
-                goToNextLevel(game.currentLevel);
-            }*/
-
             if (!isInvincible()){
                 System.out.println("Damage\n");
                 takeDamage();
