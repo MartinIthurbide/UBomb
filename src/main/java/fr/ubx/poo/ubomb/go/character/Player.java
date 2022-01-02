@@ -169,7 +169,7 @@ public class Player extends Character {
         game.nbKeys++;
     }
     public void takeHeart() {
-        game.playerHearts++;
+        setLives(getLives()+1);
     }
 
     public void takeBombNumberInc() {
