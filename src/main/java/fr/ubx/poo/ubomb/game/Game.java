@@ -127,8 +127,11 @@ public class Game {
     public void changeLevel (int currentLevel) throws IOException {
 
         // todo : faire spawn player sur la door open de l'autre monde
+        // todo : recuperer position doorOpen
 
         this.grid = tabLevels.get(currentLevel).load(currentLevel,"level"+currentLevel+".txt");
+        //player.setPosition(tabLevels.get(currentLevel).spawnP); // todo : position du joueur dans le level suivant
+        System.out.println("Position joueur : "+player.getPosition());
     }
 
 

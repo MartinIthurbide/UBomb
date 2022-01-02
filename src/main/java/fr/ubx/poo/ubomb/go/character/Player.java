@@ -108,9 +108,8 @@ public class Player extends Character {
         if (!game.inside(nextPos))
             return false;
 
-        if(game.getGrid().get(nextPos) instanceof Decor){
+        if(game.getGrid().get(nextPos) instanceof Decor)
             return false;
-        }
 
         return true;
     }
@@ -118,10 +117,6 @@ public class Player extends Character {
     @Override
     public boolean isWalkable(Player player) {
         return false;
-    }
-
-    @Override
-    public void explode() {
     }
 
     // Example of methods to define by the player

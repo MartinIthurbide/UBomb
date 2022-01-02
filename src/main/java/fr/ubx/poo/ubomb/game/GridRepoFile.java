@@ -49,10 +49,24 @@ public class GridRepoFile extends GridRepo{
                 EntityCode e = EntityCode.fromCode(s.charAt(cpt));
                 g.set(position,processEntityCode(e,position));
                 cpt++;
+
                 //System.out.println("index string : " + spot);
             }
             cpt++;
         }
+
         return g;
+    }
+    public Position spawnPlayer (int sens){
+        if (sens == 0){ //back
+            for (int i = 0; i < getGame().getGrid().getWidth(); i++){
+                for (int j = 0; j < getGame().getGrid().getHeight(); j++) {
+                    Position position = new Position(j,i);
+                    //EntityCode e = EntityCode.fromCode()
+                    //if (getGame().getGrid().get(position) ==
+                }
+            }
+        }
+        return null;
     }
 }

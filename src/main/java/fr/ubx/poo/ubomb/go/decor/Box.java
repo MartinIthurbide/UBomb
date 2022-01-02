@@ -25,5 +25,6 @@ public class Box extends Decor implements Movable {
         //game.getGrid().remove(getPosition());
         // todo : changer la position dans la grid
         System.out.println("Position Box : "+getPosition()+"\n");
+        System.out.println("Position box Grid : "+game.getGrid().get(getPosition())+"\n");
     }
 }

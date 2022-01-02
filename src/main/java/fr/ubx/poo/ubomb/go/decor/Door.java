@@ -28,6 +28,10 @@ public class Door  extends Decor {
         this.sens = sens;
     }
 
+    public int getSens() {
+        return sens;
+    }
+
     public int getState() {
         return state;
     }
