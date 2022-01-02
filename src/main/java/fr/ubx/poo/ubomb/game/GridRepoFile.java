@@ -58,22 +58,5 @@ public class GridRepoFile extends GridRepo{
 
         return g;
     }
-    public void spawnPlayer (int sens){
-            for (int i = 0; i < getGame().getGrid().getWidth(); i++){
-                for (int j = 0; j < getGame().getGrid().getHeight(); j++) {
-                    Position position = new Position(j,i);
-                    if (getGame().getGrid().get(position) instanceof Door) {
-                        Door d = (Door) getGame().getGrid().get(position);
-                        if(sens == Door.BACK)
-                            if (d.getSens() == Door.BACK) {
-                                getGame().getPlayer().setPosition(position);
-                            }
-                        else
-                            if (d.getSens() == Door.NEXT) {
-                                getGame().getPlayer().setPosition(position);
-                            }
-                    }
-                }
-        }
-    }
+
 }

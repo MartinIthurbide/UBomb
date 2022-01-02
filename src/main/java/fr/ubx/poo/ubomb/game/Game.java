@@ -8,6 +8,7 @@ package fr.ubx.poo.ubomb.game;
 import fr.ubx.poo.ubomb.go.GameObject;
 import fr.ubx.poo.ubomb.go.character.Monster;
 import fr.ubx.poo.ubomb.go.character.Player;
+import fr.ubx.poo.ubomb.go.decor.Door;
 import fr.ubx.poo.ubomb.go.decor.Explosion;
 
 import java.io.File;
@@ -134,15 +135,41 @@ public class Game {
     }
 
 
-    public void changeLevel (int currentLevel) throws IOException {
+    public void changeLevel (int currentLevel, Door d) throws IOException {
 
         // todo : faire spawn player sur la door open de l'autre monde
         // todo : recuperer position doorOpen
 
         this.grid = tabLevels.get(currentLevel).load(currentLevel,"level"+currentLevel+".txt");
-        //player.setPosition(tabLevels.get(currentLevel).spawnP); // todo : position du joueur dans le level suivant
+
+        player.setPosition(tabLevels.get(currentLevel).getGame().spawnPlayer(d.getSens())); // todo : position du joueur dans le level suivant
         System.out.println("Position joueur : "+player.getPosition());
         setChangeLevelState(true);
+    }
+
+    public Position spawnPlayer (int sens) {
+        for (int i = 0; i < getGrid().getWidth(); i++){
+            for (int j = 0; j < getGrid().getHeight(); j++) {
+                Position position = new Position(j,i);
+                if (getGrid().get(position) != null) {
+                    if (getGrid().get(position) instanceof Door) {
+                        Door d = (Door) getGrid().get(position);
+                        if(sens == Door.NEXT) {
+                            if (d.getSens() == Door.NEXT) {
+                                return position;
+                            }
+                        }
+                        else {
+                            if (d.getSens() == Door.BACK) {
+                                return position;
+                            }
+                        }
+                    }
+                }
+
+            }
+        }
+        return null;
     }
 
 
