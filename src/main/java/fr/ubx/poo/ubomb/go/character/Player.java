@@ -12,6 +12,7 @@ import fr.ubx.poo.ubomb.go.decor.Box;
 import fr.ubx.poo.ubomb.go.decor.Decor;
 import fr.ubx.poo.ubomb.go.decor.Door;
 import fr.ubx.poo.ubomb.go.decor.bonus.*;
+import javafx.geometry.Pos;
 
 import java.io.IOException;
 
@@ -93,11 +94,25 @@ public class Player extends Character {
 
         if ((d = game.getGrid().get(nextPos)) instanceof Box){
             Box b = (Box) d;
-            if (b.canMove(direction))
+            if (boxMove(b.getPosition())){
                 b.doMove(direction);
+            }
             System.out.println("Je bouge une box\n");
         }
         setPosition(nextPos);
+    }
+
+    public boolean boxMove (Position box){
+        Position nextPos = direction.nextPosition(box);
+
+        if (!game.inside(nextPos))
+            return false;
+
+        if(game.getGrid().get(nextPos) instanceof Decor){
+            return false;
+        }
+
+        return true;
     }
 
     @Override
@@ -139,26 +154,6 @@ public class Player extends Character {
             }
         }
 
-    }
-
-    // todo : inutile pour l'instant
-    public void pushBox(long now){
-        GameObject gameObject = game.getGrid().get(getDirection().nextPosition(getPosition()));
-        if (gameObject instanceof Box) {
-            Box box = (Box) gameObject;
-            if (box.canMove(getDirection())) {
-                System.out.println("Room for box to move\n");
-                if (canMove(getDirection())) {
-                    System.out.println("request : MOVE LEFT\n");
-                    update(now);
-                    doMove(getDirection());
-                    System.out.println("je suis ici");
-                    box.doMove(getDirection());
-                    System.out.println("Position de la box 2 : "+box.getPosition()+"\n");
-                }
-
-            }
-        }
     }
 
 
