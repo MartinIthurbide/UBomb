@@ -25,6 +25,7 @@ public class Game {
     public final int monsterVelocity;
     public int playerLives;
     public int levels;
+    public boolean changeLevelState = false;
     
     public int monsterLives;
     public final long playerInvisibilityTime;
@@ -124,6 +125,15 @@ public class Game {
         monsters.add(m);
     }
 
+    public boolean getChangeLevelState() {
+        return changeLevelState;
+    }
+
+    public void setChangeLevelState(boolean changeLevelState) {
+        this.changeLevelState = changeLevelState;
+    }
+
+
     public void changeLevel (int currentLevel) throws IOException {
 
         // todo : faire spawn player sur la door open de l'autre monde
@@ -132,6 +142,7 @@ public class Game {
         this.grid = tabLevels.get(currentLevel).load(currentLevel,"level"+currentLevel+".txt");
         //player.setPosition(tabLevels.get(currentLevel).spawnP); // todo : position du joueur dans le level suivant
         System.out.println("Position joueur : "+player.getPosition());
+        setChangeLevelState(true);
     }
 
 

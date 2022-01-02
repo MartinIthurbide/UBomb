@@ -273,7 +273,16 @@ public final class GameEngine {
     }
 
     private void render() {
-        sprites.forEach(Sprite::render);
+        if(game.changeLevelState){
+            sprites.clear();
+            stage.close();
+            initialize();
+            sprites.forEach(Sprite::render);
+            game.setChangeLevelState(false);
+        }
+        else{
+            sprites.forEach(Sprite::render);
+        }
     }
 
     public void start() {
