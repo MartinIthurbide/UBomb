@@ -44,13 +44,13 @@ public class Door  extends Decor {
     }
 
     public void takenBy(Player player) {
-
-            if (sens == BACK) { // BACK LEVEL
-                game.currentLevel--;
+            if(!player.blockDoor)
+                if (sens == BACK) { // BACK LEVEL
+                    game.currentLevel--;
+                    }
+                else { // NEXT LEVEL
+                    game.currentLevel++;
                 }
-            else { // NEXT LEVEL
-                game.currentLevel++;
-            }
             // todo : load map suivante
         System.out.println(game.currentLevel);
     }

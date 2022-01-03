@@ -24,7 +24,7 @@ public class Monster extends Character {
     public void update(long now) {
         velCpt--;
         if(velCpt == 0) {
-            reinitCpt(100);
+            reinitCpt(100 - (game.currentLevel * 15));
             setDirection(Direction.random());
             if (canMove(getDirection())) {
                 doMove(getDirection());

@@ -19,10 +19,10 @@ import java.io.IOException;
 
 public class Player extends Character {
 
-    public final int CONSTINV = 40;
+    public final int CONSTINV = 100;
     private int cptInvincibility;
     private boolean moveRequested = false;
-    private int currentLevel;
+    public boolean blockDoor = false;
 
 
 
@@ -31,16 +31,8 @@ public class Player extends Character {
         super(game, position,lives);
         cptInvincibility = CONSTINV;
         lives = game.playerLives;
-        currentLevel = 1;
     }
 
-    public int getCurrentLevel() {
-        return currentLevel;
-    }
-
-    public void setCurrentLevel(int currentLevel) {
-        this.currentLevel = currentLevel;
-    }
 
 
     public void requestMove(Direction direction) {
@@ -76,6 +68,7 @@ public class Player extends Character {
 
     public void update(long now) {
         if (moveRequested) {
+            blockDoor = false;
             if (canMove(getDirection())) {
                 doMove(getDirection());
             }
@@ -135,9 +128,11 @@ public class Player extends Character {
 
     public void goToNextLevel (int level, Door door) throws IOException {
         //change le monde
-        this.currentLevel = level;
-        System.out.println("Changement de monde");
-        game.changeLevel(currentLevel, door);
+        if(!blockDoor) {
+            System.out.println("Changement de monde");
+            game.changeLevel(level, door);
+        }
+
     }
 
     public void playerCollision(GameObject g){

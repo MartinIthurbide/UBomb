@@ -139,36 +139,44 @@ public class Game {
 
         // todo : faire spawn player sur la door open de l'autre monde
         // todo : recuperer position doorOpen
+        player.blockDoor = true;
+        for (Monster m: getMonsters()
+             ) {
+            grid.remove(m.getPosition());
+            m.remove();
+        }
 
-        this.grid = tabLevels.get(currentLevel).load(currentLevel,"level"+currentLevel+".txt");
+        this.grid = tabLevels.get(currentLevel-1).load(currentLevel,"level"+currentLevel+".txt");
 
-        player.setPosition(tabLevels.get(currentLevel).getGame().spawnPlayer(d.getSens())); // todo : position du joueur dans le level suivant
+        player.setPosition(tabLevels.get(currentLevel-1).getGame().spawnPlayer(d.getSens())); // todo : position du joueur dans le level suivant
         System.out.println("Position joueur : "+player.getPosition());
         setChangeLevelState(true);
     }
 
     public Position spawnPlayer (int sens) {
-        for (int i = 0; i < getGrid().getWidth(); i++){
-            for (int j = 0; j < getGrid().getHeight(); j++) {
-                Position position = new Position(j,i);
-                if (getGrid().get(position) != null) {
-                    if (getGrid().get(position) instanceof Door) {
-                        Door d = (Door) getGrid().get(position);
-                        if(sens == Door.NEXT) {
-                            if (d.getSens() == Door.NEXT) {
-                                return position;
-                            }
-                        }
-                        else {
-                            if (d.getSens() == Door.BACK) {
-                                return position;
-                            }
-                        }
+        if(sens == Door.BACK) {
+            for (int i = 0; i < getGrid().getWidth(); i++){
+                for (int j = 0; j < getGrid().getHeight(); j++) {
+                    if (grid.get(new Position(i,j)) instanceof Door) {
+                        Door d = (Door) grid.get(new Position(i,j));
+                        if (d.getSens() == Door.NEXT)
+                            return new Position(i,j);
                     }
                 }
-
             }
         }
+        if(sens == Door.NEXT) {
+            for (int i = 0; i < getGrid().getWidth(); i++){
+                for (int j = 0; j < getGrid().getHeight(); j++) {
+                    if (grid.get(new Position(i,j)) instanceof Door) {
+                        Door d = (Door) grid.get(new Position(i,j));
+                        if (d.getSens() == Door.BACK)
+                            return new Position(i,j);
+                    }
+                }
+            }
+        }
+
         return null;
     }
 
