@@ -44,7 +44,7 @@ public class Bomb extends GameObject{
     private void reinitCptExplode (int cpt) {cptExplode = cpt;}
 
     public void update() {
-        if(isExploded() != true) {
+        if(!isExploded()) {
             cptBomb--;
             if (cptBomb <= 0) {
                 setModified(true);
@@ -100,19 +100,14 @@ public class Bomb extends GameObject{
                 nextPos = direction[i].nextPosition(nextPos);
                 GameObject nextObj = game.getGrid().get(nextPos);
 
-                Position prevPos = directionOppose(direction[i]).nextPosition(nextPos);
-                GameObject prevObj = game.getGrid().get(prevPos);
 
                 if(game.inside(nextPos)){
                     if (!(nextObj instanceof Stone) && !(nextObj instanceof Tree) && !(nextObj instanceof Door)){
                         if (nextObj != null) {
                             if (nextPos == game.getPlayer().getPosition()) {
                                 damagePlayer();
-                                System.out.println("PlayerHeart : " + game.playerHearts + "\n");
-                                // todo : probleme damage player et monster
                             }
-                            if (!(prevObj instanceof Box))
-                                game.getGrid().get(nextPos).remove();
+                            game.getGrid().get(nextPos).remove();
                         }
                         System.out.println("Boom à : " + nextPos +"\n");
                         game.addExplosions(new Explosion(nextPos));
@@ -125,25 +120,7 @@ public class Bomb extends GameObject{
     }
 
     public void damagePlayer(){
-        if (game.playerHearts == 0)
-            System.out.println("Joueur mort\n");
-            // todo: game over et on detruit le player ?
-        else
+        if (game.getPlayer().getLives() != 0)
             game.playerHearts --;
-    }
-
-    public Direction directionOppose(Direction direction){
-        Direction d = null;
-        switch (direction){
-            case UP:
-                d =  Direction.DOWN;
-            case DOWN:
-                d =  Direction.UP;
-            case LEFT:
-                d = Direction.RIGHT;
-            case RIGHT:
-                d = Direction.LEFT;
-        }
-        return d;
     }
 }

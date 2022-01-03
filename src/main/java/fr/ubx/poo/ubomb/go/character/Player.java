@@ -30,7 +30,6 @@ public class Player extends Character {
 
         super(game, position,lives);
         cptInvincibility = CONSTINV;
-        lives = game.playerLives;
     }
 
 
@@ -90,7 +89,6 @@ public class Player extends Character {
             if (boxMove(b.getPosition())){
                 b.doMove(direction);
             }
-            System.out.println("Je bouge une box\n");
         }
         setPosition(nextPos);
     }
@@ -113,21 +111,20 @@ public class Player extends Character {
     }
 
     // Example of methods to define by the player
-    // TODO : Programmer les fonctions de récuperation de bonus
     public boolean takeDoor(int gotoLevel) {
         Position nextPos = getDirection().nextPosition(getPosition());
             if((game.getGrid().get(nextPos)) instanceof Door) {
                 Door d = (Door) game.getGrid().get(nextPos);
-                System.out.println(d.getState());
+                //System.out.println(d.getState());
                 d.open();
-                System.out.println(d.getState());
+                //System.out.println(d.getState());
                 return true;
             }
             return false;
     }
 
     public void goToNextLevel (int level, Door door) throws IOException {
-        //change le monde
+        // change le monde
         if(!blockDoor) {
             System.out.println("Changement de monde");
             game.changeLevel(level, door);
@@ -138,7 +135,7 @@ public class Player extends Character {
     public void playerCollision(GameObject g){
         if (getPosition().equals(g.getPosition())) {
             if (!isInvincible()){
-                System.out.println("Damage\n");
+                System.out.println("Damage taken\n");
                 takeDamage();
                 setInvincibility(true);
             }

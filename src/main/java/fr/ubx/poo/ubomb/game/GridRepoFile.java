@@ -15,13 +15,13 @@ public class GridRepoFile extends GridRepo{
 
     public Grid load(int level, String name) throws IOException {
         FileReader in = new FileReader("src/main/resources/sample/"+name);
-        char buffer[] = new char[4096];
+        char[] buffer = new char[4096];
         StringBuilder s = new StringBuilder();
         int n;
         while((n = in.read(buffer)) > 0) {
             s.append(buffer,0,n);
         }
-        System.out.println(s);
+        //System.out.println(s);
 
         int  width = 0, height = 0;
 
@@ -45,13 +45,11 @@ public class GridRepoFile extends GridRepo{
         Grid g = new Grid(width,height);
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
-                //int spot = i + j * (width+1);
                 Position position = new Position(j, i);
                 EntityCode e = EntityCode.fromCode(s.charAt(cpt));
                 g.set(position,processEntityCode(e,position));
                 cpt++;
 
-                //System.out.println("index string : " + spot);
             }
             cpt++;
         }

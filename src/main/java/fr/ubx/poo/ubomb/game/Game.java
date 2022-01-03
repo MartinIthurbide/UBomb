@@ -137,8 +137,6 @@ public class Game {
 
     public void changeLevel (int currentLevel, Door d) throws IOException {
 
-        // todo : faire spawn player sur la door open de l'autre monde
-        // todo : recuperer position doorOpen
         player.blockDoor = true;
         for (Monster m: getMonsters()
              ) {
@@ -149,7 +147,7 @@ public class Game {
         this.grid = tabLevels.get(currentLevel-1).load(currentLevel,"level"+currentLevel+".txt");
 
         player.setPosition(tabLevels.get(currentLevel-1).getGame().spawnPlayer(d.getSens())); // todo : position du joueur dans le level suivant
-        System.out.println("Position joueur : "+player.getPosition());
+        //System.out.println("Position joueur : "+player.getPosition());
         setChangeLevelState(true);
     }
 

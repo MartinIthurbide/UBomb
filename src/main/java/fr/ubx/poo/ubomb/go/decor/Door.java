@@ -39,7 +39,6 @@ public class Door  extends Decor {
     public void open() {
         if(getState() == CLOSED) {
             state = OPENED;
-            //explode();
         }
     }
 
@@ -51,14 +50,10 @@ public class Door  extends Decor {
                 else { // NEXT LEVEL
                     game.currentLevel++;
                 }
-            // todo : load map suivante
-        System.out.println(game.currentLevel);
     }
 
     public boolean isWalkable(Player player) {
-        if (getState() == OPENED)
-            return true;
-        return false;
+        return getState() == OPENED;
     }
 
 
